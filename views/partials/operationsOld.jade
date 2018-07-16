@@ -1,0 +1,37 @@
+md-content(layout-padding="")
+    form(name="userForm")
+        div(layout="row", layout-xs="column", layout-sm="column", layout-align="space-between center")       
+        md-input-container
+            md-switch(ng-model="operation.IsIncluded")  Include in model
+            |       
+        div(layout-gt-sm="row")
+            md-input-container.md-block(flex-gt-sm="")
+                label Operation Name
+                |           
+                input(md-maxlength="30", required="", name="name", ng-model="operation.SiteName")
+                div(ng-messages="userForm.name.$error", ng-if="!showHints")
+                    div(ng-message="required") Name is required.
+                    |             
+                    div(ng-message="md-maxlength") The name has to be less than 30 characters long.
+                    |         
+            div(flex="5", hide-xs="", hide-sm="")
+            // Spacer //
+            |         
+            md-input-container.md-block(flex-gt-sm="")
+                label Region
+                |           
+                input(name="region", ng-model="operation.RegionID")
+        div(layout-gt-sm="row")
+            md-button(type='submit' ng-click="addOperation()") Submit
+    md-content(layout='row')
+     md-card(ng-repeat="operation in operations track by $index")
+        md-card-title
+            md-card-header-(layout="row" layout-align="start center")
+                span.md-headline(ng-click="selectOperation(operation)") {{operation.SiteName}}
+            md-card-content
+    md-content(layout='column')
+        md-list(flex)
+            md-list-item(ng-repeat='operation in operations')
+                md-icon
+                    i.material-icons home
+                p {{operation.SiteName}}

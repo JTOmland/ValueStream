@@ -1,0 +1,26 @@
+//- link(rel='stylesheet' href='/css/bootstrap-admin.css')
+//- link(rel="stylesheet" href="/js/lib/iconpicker/bootstrap-iconpicker.min.css")
+md-dialog(flex)
+    md-toolbar
+        .md-toolbar-tools
+            h2 Workcenter Editor
+            span(flex)
+            md-button.md-icon-button(ng-click='closeWorkcenterEdit()')
+                md-icon close
+    
+    md-dialog-content
+        .md-dialog-content(layout="row" layout-wrap)
+            form(name="userForm")
+                md-input-container.md-block 
+                    md-switch(ng-model="workcenter.IsIncluded")  Include in model
+                md-input-container.md-block(flex-gt-sm="")
+                    label Workcenter Name
+                    input(md-maxlength="30", required="", name="name", ng-model="workcenter.WorkCenterName")
+                    div(ng-messages="userForm.name.$error", ng-if="!showHints")
+                        div(ng-message="required") Name is required.
+                        div(ng-message="md-maxlength") The name has to be less than 30 characters long.
+                md-input-container.md-block(flex-gt-sm="")
+                    label Region
+                    input(name="region", ng-model="workcenter.RegionID")
+                div(layout-gt-sm="row" layout-align="end center" flex="100")
+                    md-button.md-raised.md-primary(type='submit' ng-click="addWorkcenter()") Create

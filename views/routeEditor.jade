@@ -1,0 +1,48 @@
+//- md-dialog(flex)
+//-     md-toolbar(layout='row')
+//-     .md-toolbar-tools
+//-         h2(flex="25") Select Operation For Process Step
+//-         h2(flex="25") You selected {{active.operation.SiteName}}
+//-         md-input-container()
+//-             label Enter step discription
+//-             input(ng-model="active.stepName")
+//-         md-button.md-icon-button(ng-click='save()')
+//-             md-icon save
+//-         md-button.md-icon-button(ng-click='closeEdit()')
+//-             md-icon close
+//-     md-dialog-content
+//-     .md-dialog-content(layout="row")
+//-         md-card(ng-repeat="operation in operations track by $index")
+//-                 md-card-title
+//-                     md-card-header-(layout="row" layout-align="start center")
+//-                         span.md-headline(ng-click="selectOperation(operation)") {{operation.SiteName}}
+//-                 md-card-content
+md-dialog
+    md-toolbar
+        .md-toolbar-tools
+            h2 Create or Edit Process Flow
+            span(flex)
+            md-button.md-icon-button(type='button' ng-click='close()')
+                md-icon close   
+    form(ng-cloak name="addStepForm")
+        md-dialog-content
+            .md-dialog-content(layout='row')
+            md-input-container.md-block(flex-gt-sm)
+                label Select Operation
+                md-select(ng-model ='active.operation' required name='operation')
+                    md-option(ng-repeat='product in products' value="{{operation.SiteName}}")
+                        {{operation.SiteName}}
+                div(ng-messages="addStepForm.operation.$error")
+                    div(ng-message="required") Operation is required
+            md-input-container.md-block(flex-gt-xs)
+                label Select Step Name
+                md-select(ng-model ='active.stepName' required name='title' placeholder='testPlaceholder')
+                    md-option(ng-repeat='process in processSteps' value="{{process.title}}")
+                        {{process.title}}
+                div(ng-messages="addStepForm.title.$error")
+                    div(ng-message="required") Step is required
+            md-button(type='submit' ng-click='save()') Submit
+            md-button(ng-click='close()' type='button' formnovalidate) Cancel
+                  
+                    
+                    

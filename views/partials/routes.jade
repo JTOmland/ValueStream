@@ -1,0 +1,25 @@
+md-content(layout='row')
+    div(id="tree-root" ui-tree="treeOptions" flex ='50')
+      ol(ng-model="routes" ui-tree-nodes="")
+        li(ng-repeat="item in routes" ui-tree-node ng-include="'nodes_renderer.html'")
+     div(flex ='50')
+        h2 Select Product To Edit Or Copy Flow
+        md-card(ng-repeat="product in productModel track by $index")
+            md-card-title
+                md-card-header-(layout="row" layout-align="start center")
+                    span.md-headline(ng-click="selectProduct(product)") {{product.ProductName}}
+            md-card-content
+                md-card-title.journeyBuilderControlsContainer(layout="row")
+                    md-card-header-text
+                        span.md-title {{product.ProductName}}
+script(type="text/ng-template" id="nodes_renderer.html").
+    <div ui-tree-handle class="tree-node tree-node-content" >
+        {{item.title}}
+        <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
+        <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
+    </div>
+    <ol ui-tree-nodes="" ng-model="item.nodes">
+        <li ng-repeat="item in item.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+        </li>
+    </ol>
+   

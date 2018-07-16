@@ -1,0 +1,41 @@
+md-card(ng-repeat="model in models track by $index")
+    md-card-title
+        md-card-header
+            md-card-header-(layout="row" layout-align="start center")
+                i(class="fa {{model.CPModelItems.icon}} journeyBuilderGroupIcon")
+                span.md-headline(ng-click="selectModel(model)") {{model.CPModelItems.CPModelName}}
+
+    md-card-content
+        div(layout="row" layout-align="start start" data-ng-model="model.SiteModelItems" layout-wrap data-as-sortable="dragListeners")
+            md-card(ng-repeat="product in model.ProductModelItems" data-as-sortable-item)
+                md-card-title.journeyBuilderControlsContainer(layout="row")
+                    md-card-header-text
+                        span.md-title {{product.ProductName}}
+                    span(flex)
+                    span.journeyBuilderControls
+                        md-icon.journeyBuilderTreeActionIcon(data-as-sortable-item-handle ng-click="") open_with
+                        md-icon.journeyBuilderTreeActionIcon(ng-click="editProduct($event,model, product)") create
+                        md-icon.md-icon-button.journeyBuilderTreeActionIcon(ng-click="deleteProduct($event, model, product)") delete
+                md-card-content
+                    div()
+                        ol()
+                            li(ng-repeat="(key, value) in product.Demand")
+                                {{key}} {{value}}
+                    md-button.md-raised.md-primary(ng-click="editDemand($event, model, product)") Edit Demand
+
+
+            md-button.md-raised.md-primary(ng-click="addProduct($event, model)") Add Product
+
+    md-divider
+    md-card-actions(layout="row" layout-align="start center")
+        md-button.md-icon-button.md-primary(ng-click="editModel($event, model)")
+            md-icon mode_edit
+            md-tooltip(md-delay="500") Edit Collection
+        md-button.md-icon-button.md-primary(ng-click="deleteModel($event, model)")
+            md-icon delete
+            md-tooltip(md-delay="500") Delete Collection
+
+div(layout="row" layout-align="end center")
+    md-button.md-primary.md-fab.md-fab-bottom-right.md-icon-button(ng-click="createModel()" id="createNew" )
+        md-icon add
+        md-tooltip(md-delay="500" md-direction="top") Add Collection

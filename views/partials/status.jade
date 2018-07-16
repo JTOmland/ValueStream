@@ -1,0 +1,97 @@
+div(layout='row')
+    //- md-content(flex="100")
+    //-     div(ng-repeat= 'process in processModel track by $index', ng-click='selectProcess(process, $index)')
+    //-         {{process.ProcessName}}
+    //-         md-input-container
+    //-             label Rate
+    //-             input(type='number' ng-model="process.rate")
+     md-content(flex="100")
+        mdt-table(mdt-row="{data: processModel,'column-keys':['ProcessID','CPModelID','ProcessName','ProcessStepName','NextProcessStepName','PercentLoad','Yield','WorkCenterID','WorkCenterName','ProductID','ProductName','SiteID','SiteName']}")
+            mdt-header-row
+                mdt-column(align-rule='left') ProcessID
+                mdt-column(align-rule='left') CPModelID
+                mdt-column(align-rule='left') Process Name
+                mdt-column(align-rule='left') ProcessStepName
+                mdt-column(align-rule='left') Next Step
+                mdt-column(align-rule='left') % Load
+                mdt-column(align-rule='left') % Yield
+                mdt-column(align-rule='left') WorkCenterID
+                mdt-column(align-rule='left') WorkCenter
+                mdt-column(align-rule='left') ProductID
+                mdt-column(align-rule='left') ProductName
+                mdt-column(align-rule='left') SiteID
+                mdt-column(align-rule='left') SiteName
+    md-content(flex="100")
+        mdt-table(save-row-callback="saveRowCallback(row)")
+            mdt-header-row
+                mdt-column(align-rule='right' column-sort="true") ProcessID
+                mdt-column(align-rule='right' column-sort="true") CPModelID
+                mdt-column(align-rule='right' column-sort="true") Process Name
+                mdt-column(align-rule='right' column-sort="true") ProcessStepName
+                mdt-column(align-rule='right' column-sort="true") Next Step
+                mdt-column(align-rule='right' column-sort="true") % Load
+                mdt-column(align-rule='right' column-sort="true") % Yield
+                mdt-column(align-rule='right' column-sort="true") WorkCenterID
+                mdt-column(align-rule='right' column-sort="true") WorkCenter
+                mdt-column(align-rule='right' column-sort="true") ProductID
+                mdt-column(align-rule='right' column-sort="true") ProductName
+                mdt-column(align-rule='right' column-sort="true") SiteID
+                mdt-column(align-rule='right' column-sort="true") SiteName
+            mdt-row(ng-repeat="process in processModel")
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.ProcessID}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.CPModelID}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.ProcessName}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.ProcessStepName}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.NextProcessStepName}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.PercentLoad}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.Yield}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.WorkCenterID}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.WorkCenterName}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.ProductID}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.ProductName}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.SiteID}}
+                mdt-cell(editable-field="smallEditDialog" editable-field-max-length="25") {{process.SiteName}}
+        //- label Location(x)
+        //- input(type='number' ng-model="active.location.x")
+        //- md-input-container(flex="50")
+        //- label Location(y)
+        //- input(type='number' ng-model="active.location.y")
+        //- md-input-container(flex="50")
+        //- label HQ
+        //- input(ng-model="active.hq")
+        //- md-input-container(flex="50")
+        //- label Front
+        //- input(type='number' ng-model="active.front")
+        //- md-input-container(flex="50")
+        //- label Anti-Personel Firepower
+        //- input(type='number' ng-model="active.apFirepower.firePower")
+        //- md-input-container(flex="50")
+        //- label Anti-Personel Range
+        //- input(type='number' ng-model="active.apFirepower.range")
+        //- md-input-container(flex="50")
+        //- label Anti-Armour Firepower
+        //- input(ng-model="active.amFirepower.firePower")
+        //- md-input-container(flex="50")
+        //- label Anti-Armour Range
+        //- input(type='number' ng-model="active.amFirepower.range")
+        //- md-input-container(flex="50")
+        //- label Formation
+        //- input(ng-model="active.formation")
+        //- md-input-container(flex="50")
+        //- label Movement Type
+        //- input(ng-model="active.movementType")
+        //- md-input-container(flex="50")
+        //- label Country
+        //- input(ng-model="active.country")
+        //- md-input-container(flex="50")
+        //- label Unit Size
+        //- input(ng-model="active.size")
+        //- md-input-container(flex="50")
+        //- label Terrain
+        //- input(ng-model="active.terrain")
+        //- md-input-container(flex="50")
+        //- label Goal X
+        //- input(ng-model="active.orders.goal.x")
+        //- md-input-container(flex="50")
+        //- label Goal Y
+        //- input(ng-model="active.orders.goal.y")

@@ -1,0 +1,67 @@
+extends layout
+
+block content
+  body(ng-controller='capacityController')
+    button.btn.btn-primary(type='button', ng-click='runSimulation()') Run Simulation
+    button.btn.btn-primary(type='button', ng-click='saveData()') Save Model
+    button.btn.btn-primary(type='button', ng-click='demandByOperation(operation)') Filter By Operation
+    input#openselect(type='file')
+    form(name='myForm')
+      label(for='repeatSelect')  Filter By Operation: 
+      select#repeatSelect(name='repeatSelect', ng-init="operation || 'All'", ng-model='operation')
+        option(value='') All
+        option(ng-repeat='option in siteModel', value='{{option.SiteName}}') {{option.SiteName}}
+      label(for='workCenterSelect')  Filter By WorkCenter: 
+      select#workCenterSelect(name='workCenterSelect', ng-init='All', ng-model='maker')
+        option(value='') All
+        option(ng-repeat='workcenter in workCenterModel', value='{{workcenter.WorkCenterName}}') {{workcenter.WorkCenterName}}
+      label(for='product')  Filter By Product: 
+      select#product(name='product', ng-init='All', ng-model='product')
+        option(value='') All
+        option(ng-repeat='product in products', value='{{product}}') {{product}}
+      label(for='periodSelect')  Filter By Period: 
+      select#periodSelect(name='periodSelect', ng-init='All', ng-model='periodUnit', ng-change='selectTimePeriod()')
+        option(value='') All
+        option(ng-repeat='periodUnit in timePeriods', value='{{periodUnit.PeriodName}}') {{periodUnit.PeriodName}}
+    table(ng-repeat='processStep in processSteps | filter:{SiteName:operation} | filter:{WorkCenterName:maker} | filter:{ProductName:product} track by $index')
+      thead
+        tr
+          td Process Name
+          td Next Process
+          td WorkCenter
+          td Product
+          td Output
+          td Inventory
+          td TargetInventory
+          td Demand(sqMtrs)
+        tr
+      tr(ng-repeat='(period, amount) in filteredDemand(processStep.processAllDemand, periodUnit)')
+        td.wider {{processStep.ProcessStepName}}
+        td {{processStep.NextProcessStepName}}
+        td.wider {{processStep.WorkCenterName}}
+        td {{processStep.ProductName}}
+        td {{processStep.outputAmount}}
+        td {{processStep.}}
+        td {{getPeriod(period)}}
+        td {{amount}}
+    div(ng-repeat='site in siteModel track by $index')
+      table(ng-repeat='(product, demand) in site.products track by $index')
+        thead
+          tr
+            td Operation Name
+            td Product
+            td Period
+            td Demand
+          tr
+        tr(ng-repeat='(period, amount) in demand')
+          td.wider {{site.SiteName}}
+          td {{product}}
+          td.wider {{period}}
+          td {{amount.toFixed(0)}}
+          //
+            <td>{{processStep.UnitCost}}</td>
+            <td>{{processStep.UnitTime}}</td>
+            <td>{{getPeriod(period)}}</td>
+            <td>{{amount.toFixed(0)}}</td>
+  html
+

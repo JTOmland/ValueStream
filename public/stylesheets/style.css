@@ -1,0 +1,181 @@
+body {
+  /*padding: 50px;*/
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.alert {
+    text-align: center;
+    font-size: 1.5 em;
+    background-color: red;
+}
+
+table, td {
+    border-bottom: 2px solid #000;
+    padding: 3px;
+    text-align: center;
+    width:100px;
+    min-width: 100px;
+    max-width: 100px;
+    overflow: hidden;
+    /*display: inline-block;*/
+    white-space: nowrap;
+    font-size: 0.85em;
+
+}
+
+thead {
+    font-weight: bolder;
+    font-size: 1.1em;
+    color: red;
+}
+
+td.wider{
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+
+}
+.text-center{
+    text-align: center;
+}
+
+.itemName{
+    text-align: center;
+}
+
+.step{
+    border-style:solid;
+    border-width:3px;
+    border-color:rgb(255,231,231);
+    border-radius: 5px;
+    margin-bottom: 25px;
+    padding: 15px;
+    max-width: 200px;
+}
+.row{
+    padding: 15px;
+    border-width:2px;
+    border-color:rgba(52,240,20,1);
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+.container{
+    border-style: solid;
+    border-width:1px;
+    border-color:rgb(255,231,231);
+    border-radius: 5px;
+    margin-bottom: 25px;
+    padding: 15px;
+    max-width: 750px;
+}
+.container h4{
+    position: relative;
+    top: 5px;
+    left:10px;
+}
+.tree-node{
+    border-style:solid;
+    border-width:1px;
+    border-color:rgb(18, 18, 19);
+    border-radius: 5px;
+    background: rgb(201, 209, 236);
+    color: rgb(19, 18, 17);
+
+}
+.pull-right{
+    float: right!important;
+    cursor: pointer;
+}
+
+.angular-ui-tree-handle {
+    padding: 10px;
+    min-height: 50px;
+    line-height: 50px;
+    font: 16px;
+}
+
+.angular-ui-tree-nodes {
+    padding-left: 20px;
+}
+
+.tree-node-content {
+    margin: 10px;
+}
+
+.slide-down {
+    max-height: 100px;
+    -webkit-transition: max-height linear 0.5s;
+    -moz-transition: max-height linear 0.5s;
+    -o-transition: max-height linear 0.5s;
+    transition: max-height linear 0.5s;
+    overflow:hidden;
+    text-align: center;
+    height: 50px;
+    background-color: crimson;
+    position: absolute;
+    /* transition-property: height; 
+    transition-duration: 2s;
+    transition-timing-function: ease-in-out;
+    transition-delay: 0s;
+    overflow: hidden; */
+}
+
+.slid-down.ng-hide {
+    max-height: 0px;
+    background-color: blue;
+    overflow: hidden;
+}
+.alert-container {
+   
+    vertical-align: center;
+
+}
+
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: blue;
+    width: 500px;
+    text-align: center;
+}
+
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: maroon;
+    width: 500px;
+    text-align: center;
+}
+
+md-toast {
+	left: calc(50vw - 250px);
+}
+
+
+.journeyBuilderAttribute {
+    margin-right:20px;
+}
+
+.journeyBuilderGroupIcon {
+    margin-right: 5px;
+}
+
+.journeyBuilderTreeActionIcon {
+    margin-right: 5px;
+}
+
+.journeyBuilderControls {
+    visibility: hidden;
+}
+
+.journeyBuilderControlsContainer:hover .journeyBuilderControls {
+    cursor: pointer;
+    visibility: visible;
+}
+
+.facetList md-checkbox {
+    margin-bottom: 0px;
+}
+.facetList .md-body-1 {
+    line-height: normal;
+}

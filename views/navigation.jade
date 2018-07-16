@@ -1,0 +1,86 @@
+md-sidenav.md-sidenav-left(md-component-id='left' ng-cloak)
+    md-toolbar(layout='row')
+        .md-toolbar-tools
+            h2
+                span Navigation Menu
+            span(flex)
+            md-button.md-icon-button(aria-label='Close Side Panel', ng-click='closeSideNavPanel()')
+                md-tooltip Close Side Panel
+                md-icon.md-default-theme
+                    i(class="material-icons") clear
+    md-list(flex ng-click="closeSideNavPanel()")
+        md-list-item(href='/')
+            md-icon
+                i.material-icons home
+            p Home
+        md-list-item(href='/operations')
+            md-icon
+                i.material-icons explore
+            p Operations
+        md-list-item(href='/products')
+            md-icon
+                i.material-icons location_on
+            p Products
+        md-list-item(href='/routes')
+            md-icon
+                i.material-icons device_hub
+            p Value Streams
+        md-list-item(href='/demand')
+            md-icon
+                i.material-icons explore
+            p Analyze
+        md-list-item(href='/status')
+            md-icon
+                i.material-icons chat
+            p Simulation
+       
+       
+         
+        
+    //-     if(user.siteRole == 'stAdmin' || user.siteRole == 'administrator' || user.siteRole == 'successManager')
+    //-         md-list-item(ng-click="go('/journeys')")
+    //-             md-icon.md-default-theme
+    //-                 i.material-icons explore
+    //-             p Journeys
+    //-     md-list-item(ng-click="go('/solutions')")
+    //-         md-icon.md-default-theme
+    //-             i.material-icons create
+    //-         p Guides
+    //-     if(user.siteRole == 'stAdmin' || user.siteRole == 'administrator' || user.siteRole == 'successManager')
+    //-         md-list-item(ng-click="go('/escalations')")
+    //-             md-icon.md-default-theme
+    //-                 i.material-icons chat
+    //-             p Escalations
+    //-     if(user.siteRole == 'stAdmin' || user.siteRole == 'administrator' || user.siteRole == 'successManager')
+    //-         md-list-item(ng-click="go('/contexthelp')")
+    //-             md-icon.md-default-theme
+    //-                 i.material-icons location_on
+    //-             p Context Help
+    //-     if(user.siteRole == 'stAdmin' || user.siteRole == 'administrator' || user.siteRole == 'successManager')
+    //-         md-list-item(ng-click="go('/analytics')")
+    //-             md-icon.md-default-theme
+    //-                 i.material-icons pie_chart
+    //-             p Analytics
+    //-     if(user.siteRole == 'stAdmin' || user.siteRole == 'administrator')
+    //-         md-list-item(ng-click="go('/sites')")
+    //-             md-icon.md-default-theme
+    //-                 i.material-icons settings
+    //-             p Sites
+    //-     if(user.siteRole == 'stAdmin')
+    //-         md-list-item(ng-click="go('/users')")
+    //-             md-icon.md-default-theme
+    //-                 i.material-icons perm_identity
+    //-             p Users
+    //-     md-list-item(ng-click="go('/preview')")
+    //-         md-icon.md-default-theme
+    //-             i.material-icons visibility
+    //-         p Preview
+    //-  ul
+    //-   li
+    //-     a(href='/') Home
+    //-   li
+    //-     a(href='/demand') Prop Demand
+    //-   li
+    //-     a(href='/status') Production Status
+    //-   li
+    //-     a(href='/routes') Routes

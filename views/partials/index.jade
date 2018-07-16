@@ -1,0 +1,57 @@
+p You are now in partials/index
+div(layout="column")
+    div(flex="5" )
+    div(layout="row" layout-align="space-around center" flex )
+        md-card.homeCard(flex="25")
+            md-card-header
+                md-card-avatar
+                    md-icon explore
+                md-card-header-text
+                    span.md-subhead Step 1:
+                    span.md-subhead(md-colors="{color:'primary'}") Create Operations And WorkCenters
+            md-card-content
+                p.homeDesc Define what operations and associated workcenters are available to manufacture products
+                md-card-actions
+                    div(layout="row" layout-align="center")
+                        a(href="/operations")
+                            md-button.md-raised.md-primary Go!
+        md-card.homeCard(flex="25")
+            md-card-header
+                md-card-avatar
+                    md-icon create
+                md-card-header-text
+                    span.md-subhead Step 2: 
+                    span.md-subhead(md-colors="{color:'primary'}") Create A List Of Products
+            md-card-content
+                p.homeDesc Create a list of end products that will be manufactured and analyzed.
+                md-card-actions
+                    div(layout="row" layout-align="center")
+                        a(href="/products")
+                            md-button.md-raised.md-primary Go!
+        md-card.homeCard(flex="25")
+            md-card-header
+                md-card-avatar
+                    md-icon device_hub
+                md-card-header-text
+                    span.md-subhead Step 3:
+                    span.md-subhead(md-colors="{color:'primary'}") Create Value Streams
+            md-card-content
+                p.homeDesc Create or edit value streams for your products that utilize the operations for your products.
+                md-card-actions
+                    div(layout="row" layout-align="center")
+                        a(href="/routes")
+                            md-button.md-raised.md-primary Go!
+        md-card.homeCard(flex="25")
+            md-card-header
+                md-card-avatar
+                    md-icon pie_chart
+                md-card-header-text
+                    span.md-subhead Step 4:
+                    span.md-subhead(md-colors="{color:'primary'}") Measure and Evolve
+            md-card-content
+                p.homeDesc Leverage analytics and scenarios to understand and evolve your value stream operations
+                md-card-actions
+                    div(layout="row" layout-align="center")
+                        a(href="/demand")
+                            md-button.md-raised.md-primary Go!
+    div(flex="5")
