@@ -1,9 +1,8 @@
 md-card(ng-repeat="model in models track by $index")
     md-card-title
-        md-card-header
-            md-card-header-(layout="row" layout-align="start center")
-                i(class="fa {{model.CPModelItems.icon}} journeyBuilderGroupIcon")
-                span.md-headline(ng-click="selectModel(model)") {{model.CPModelItems.CPModelName}}
+        md-card-header(layout="row" layout-align="start center")
+            i(class="fa {{model.CPModelItems.icon}} journeyBuilderGroupIcon")
+            span.md-headline(ng-click="selectModel(model)") {{model.CPModelItems.CPModelName}}
 
     md-card-content
         div(layout="row" layout-align="start start" data-ng-model="model.SiteModelItems" layout-wrap data-as-sortable="dragListeners")
@@ -21,11 +20,8 @@ md-card(ng-repeat="model in models track by $index")
                         ol()
                             li(ng-repeat="(key, value) in product.Demand")
                                 {{key}} {{value}}
-                    md-button.md-raised.md-primary(ng-click="editDemand($event, model, product)") Edit Demand
-
-
-            md-button.md-raised.md-primary(ng-click="addProduct($event, model)") Add Product
-
+                    md-button.md-raised.md-primary(ng-click="editDemand($event, model, product)") Edit Product
+            md-button.md-raised.md-primary(ng-click="addProducts()") Add Product
     md-divider
     md-card-actions(layout="row" layout-align="start center")
         md-button.md-icon-button.md-primary(ng-click="editModel($event, model)")

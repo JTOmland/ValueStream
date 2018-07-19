@@ -2,8 +2,8 @@ angular
     .module('vsapp')
     .factory('DataFactory', DataFactory);
 
-DataFactory.$inject = [];
-function DataFactory() {
+DataFactory.$inject = ['idFactory'];
+function DataFactory(idFactory) {
     var service = {
         getTimePeriods: getTimePeriods,
         demandModel: demandModel,
@@ -28,7 +28,8 @@ function DataFactory() {
                 "LastModified": "3/8/2016 1:49:12 PM",
                 "UOM": "Square Meter Sold",
                 "PlanningMethod": 0,
-                "PeriodStart": new Date(1/1/2016)
+                "PeriodStart": new Date('January 1, 2016 00:00:00'),
+                "LastID": 0
             },
         "RegionModelItems": [
             {
@@ -3912,8 +3913,7 @@ function DataFactory() {
                     product.Demand = {};
                 }
                 if(product.ProductID === demandItem.ProductID) {
-                    var item = {};
-                    item[demandItem.DueDate] = parseInt(demandItem.Quantity);
+                    
                     product.Demand[demandItem.DueDate] = parseInt(demandItem.Quantity);
                 }
             })
@@ -3966,9 +3966,11 @@ function DataFactory() {
     }
 
     function init(){
+        idFactory.setLastID(dataModel);
         buildOperationsWorkcenters();
         buildProductDemand()
         console.log("products with demand", dataModel.ProductModelItems)
+        console.log("lastID plust 1", idFactory.getID());
     }
 
     init();

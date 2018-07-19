@@ -16,7 +16,7 @@ md-dialog(flex)
                 md-input-container.md-block(flex-gt-sm="")
                     label Workcenter Name
                     input(md-maxlength="30", required="", name="name", ng-model="workcenter.WorkCenterName")
-                    div(ng-messages="userForm.name.$error", ng-if="!showHints")
+                    div(ng-messages="userForm.name.$error")
                         div(ng-message="required") Name is required.
                         div(ng-message="md-maxlength") The name has to be less than 30 characters long.
                 md-input-container.md-block(flex-gt-sm="")

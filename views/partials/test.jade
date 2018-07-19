@@ -1,26 +1,3 @@
-    div(layout='row')
-    //- md-content(flex="100")
-    //-     div(ng-repeat= 'process in processModel track by $index', ng-click='selectProcess(process, $index)')
-    //-         {{process.ProcessName}}
-    //-         md-input-container
-    //-             label Rate
-    //-             input(type='number' ng-model="process.rate")
-     md-content(flex="100")
-        mdt-table(mdt-row="{data: processModel,'column-keys':['ProcessID','CPModelID','ProcessName','ProcessStepName','NextProcessStepName','PercentLoad','Yield','WorkCenterID','WorkCenterName','ProductID','ProductName','SiteID','SiteName']}")
-            mdt-header-row
-                mdt-column(align-rule='left') ProcessID
-                mdt-column(align-rule='left') CPModelID
-                mdt-column(align-rule='left') Process Name
-                mdt-column(align-rule='left') ProcessStepName
-                mdt-column(align-rule='left') Next Step
-                mdt-column(align-rule='left') % Load
-                mdt-column(align-rule='left') % Yield
-                mdt-column(align-rule='left') WorkCenterID
-                mdt-column(align-rule='left') WorkCenter
-                mdt-column(align-rule='left') ProductID
-                mdt-column(align-rule='left') ProductName
-                mdt-column(align-rule='left') SiteID
-                mdt-column(align-rule='left') SiteName
     md-content(flex="100")
         mdt-table(save-row-callback="saveRowCallback(row)")
             mdt-header-row
@@ -37,19 +14,6 @@
                 mdt-column(align-rule='right' column-sort="true") ProductName
                 mdt-column(align-rule='right' column-sort="true") SiteID
                 mdt-column(align-rule='right' column-sort="true") SiteName
-       
-    //- md-card-content
-        div from routes
-        //- div.ui-tree
-        //-     ol(ui-tree-nodes="", ng-model="routes")
-        //-         li.ui-tree-node(ng-repeat='item in routes')
-        //-             .ui-tree-handle
-        //-                 {{item.title}}
-        //-             ol(tree-nodes="" ng-model="item.items")
-        //-                 li(ng-repeat="subItem in item.items")
-        //-                     .ui-tree-handle
-        //-                         {{subItem.title}}
-
             
 
    

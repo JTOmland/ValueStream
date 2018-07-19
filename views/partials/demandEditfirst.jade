@@ -1,0 +1,21 @@
+//- link(rel='stylesheet' href='/css/bootstrap-admin.css')
+//- link(rel="stylesheet" href="/js/lib/iconpicker/bootstrap-iconpicker.min.css")
+md-dialog(flex)
+    md-toolbar
+        .md-toolbar-tools
+            h2 Demand Editor  
+            span(flex)
+            md-button.md-icon-button(ng-click='closeDemandEdit()')
+                md-icon close
+    md-dialog-content(flex)
+        md-virtual-repeat-container(id="vertical-container" md-top-index="topIndex" flex)
+            h2 stuff
+            div(md-virtual-repeat="item in product.Demand" class="repeated-item" flex)
+                label {{item}}
+                //- input(ng-model="product.Demand[key]") uom here
+            //- form(name="userForm")
+            //-     md-input-container.md-block(flex-gt-sm="" ng-repeat="(key, value) in product.Demand")
+            //-         label  {{key}}
+            //-         input(ng-model="product.Demand[key]")
+            //-     div(layout-gt-sm="row" layout-align="end center" flex="100")
+            //- md-button.md-raised.md-primary(type='submit' ng-click="addWorkcenter()") Create
