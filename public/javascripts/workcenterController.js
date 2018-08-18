@@ -15,7 +15,8 @@ function workcenterController($scope, $mdDialog, dialogLocals) {
         "WorkCenterType": "Existing",
         "WorkCenterName":"",
         "IsIncluded": false,
-        "RegionID": ""
+        "ExperimentTime": [],
+        "OperatingCost": []
     }
 
     $scope.closeWorkcenterEdit = function() {

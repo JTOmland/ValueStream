@@ -13,5 +13,6 @@ function controller2 ($scope){
 }
 
 function controller3 ($scope) {
-    $scope.page = "controlelr3";
+    console.log("controller3");
+    $scope.page = "controller3";
 }

@@ -1,16 +1,16 @@
 vsapp.controller('productsController', productsController)
 
-productsController.$inject = ['$scope', 'DataFactory', '$mdDialog'];
+productsController.$inject = ['$scope', 'DataFactory', '$mdDialog', 'idFactory'];
 
 
-function productsController($scope, DataFactory, $mdDialog) {
+function productsController($scope, DataFactory, $mdDialog, idFactory) {
 
 
     $scope.product = { CFModelID: 151, SiteID: 0, SitenName: '', IsIncluded: true, RegionID: '' };
     function buildDemand(product) {
-        var trackingDate = angular.copy($scope.model.CPModelItems.PeriodStart)
+        var trackingDate = angular.copy($scope.model.CPModelItems.PeriodStart);
         for(var i=0; i<60; i++) {
-            product.Demand[trackingDate] = 0;
+            product.Demand[trackingDate.getTime()] = 0;
             trackingDate.setMonth(trackingDate.getMonth() + 1);
         }
     }
@@ -43,8 +43,10 @@ function productsController($scope, DataFactory, $mdDialog) {
             clickOutsideToClose: true,
             fullscreen: true,
             dialogLocals: items,
-        }).then(function(productUpdate){
-            console.log("returned from dialog and product is ", productUpdate)
+        }).then(function(product){
+            console.log("returned from dialog and product is ", product);
+            product.ProductID = idFactory.getID();
+            $scope.model.ProductModelItems.push(product);
         });
     }
 
@@ -56,9 +58,7 @@ function productsController($scope, DataFactory, $mdDialog) {
 
     $scope.editDemand = function (ev, model, product) {
         console.log("editDemand", product)
-        if (!product.Demand) {
-            product.Demand = [];
-        }
+
         var items = {
             model: $scope.model,
             product: product,
@@ -71,14 +71,16 @@ function productsController($scope, DataFactory, $mdDialog) {
             fullscreen: true,
             targetEvent: ev,
             dialogLocals: items
-        }).then(function (newDemand) {
-            console.log("demand edit dialog closed returning", newDemand);
-            // if(newDemand) {
-            //     product.Demand.push(newDemand);
-            // }
-            //$scope.loadFacets(group);
+        }).then(function (item) {
+            //if an item is returned the editing was cancelled and the original item was returned.  Need to set data back to original
+            var modelItem = _.find($scope.model.ProductModelItems, function(p){ 
+                return p.ProductID == item.ProductID
+            })
+            modelItem = angular.copy(item);
+            console.log("modelItem after copy", modelItem);
+            console.log($scope.model.ProductModelItems)
+
         });
-        console.log('adding demand')
     }
 
     $scope.editproduct = function (event, model, product) {

@@ -3,7 +3,7 @@ var vsapp = angular.module('vsapp', ['ngMaterial', 'ngMessages', 'ngRoute', 'mdD
         $routeProvider.
             when('/', {
                 templateUrl: '/partials/index',
-                controller: controller3
+                controller: homeController
             }).
             when('/demand', {
                 templateUrl: 'partials/demand',

@@ -19,7 +19,7 @@ function DataFactory(idFactory) {
     var processSteps = [];
     var dataModel = {
         "ModelName": "Test1",
-        "CPModelItems": 
+        "CPModelItems": [
             {
                 "CPModelID": 151,
                 "CPModelName": "FMSCO Test1",
@@ -31,6 +31,19 @@ function DataFactory(idFactory) {
                 "PeriodStart": new Date('January 1, 2016 00:00:00'),
                 "LastID": 0
             },
+            {
+                "CPModelID": 152,
+                "CPModelName": "FMSCO Test2",
+                "CPModelDescription": "Test of COAL for setup as a capacity model for FMSCO as a potential replacement for current excel ba",
+                "IsSourceOfTruth": 0,
+                "LastModified": "3/8/2016 1:49:12 PM",
+                "UOM": "Square Meter Sold",
+                "PlanningMethod": 0,
+                "PeriodStart": new Date('January 1, 2016 00:00:00'),
+                "LastID": 0
+            },
+        ],
+            
         "RegionModelItems": [
             {
                 "CPModelID": 151,
@@ -3966,11 +3979,11 @@ function DataFactory(idFactory) {
     }
 
     function init(){
-        idFactory.setLastID(dataModel);
-        buildOperationsWorkcenters();
-        buildProductDemand()
-        console.log("products with demand", dataModel.ProductModelItems)
-        console.log("lastID plust 1", idFactory.getID());
+       // idFactory.setLastID(dataModel);
+        // buildOperationsWorkcenters();
+        // buildProductDemand()
+        // console.log("products with demand", dataModel.ProductModelItems)
+        // console.log("lastID plust 1", idFactory.getID());
     }
 
     init();

@@ -1,0 +1,24 @@
+md-dialog(flex)
+    md-toolbar
+        .md-toolbar-tools
+            h2 Model Edit 
+            span(flex)
+            md-button.md-icon-button(ng-click='closeModelEdit()')
+                md-icon close
+      md-dialog-content(flex layout='row')
+        md-content(layout='row' flex='45')
+          form(name='modelEditForm')
+            md-content.md-padding(layout='column')
+                md-input-container.md-block(flex-gt-xs)
+                    label Model Name
+                    input(ng-model='model.ModelName' required="", name="name")
+                    div(ng-messages="modelEditForm.name.$error")
+                    div(ng-messages="required") Model name is required.
+                md-input-container.md-block(flex-gt-xs)
+                    label Description
+                    input(ng-model='model.Description')
+                md-input-container.md-block(flex-gt-xs)
+                    md-subheader Period Start
+                    md-datepicker(ng-model="model.PeriodStart" md-mode='month' md-placeholder="Enter date" required="")
+                md-button.md-raised.md-primary(ng-click="createModel()" type='submit' ng-disabled="modelEditForm.$invalid" ng-if="mode=='createModel'") Create Model
+                md-button.md-raised.md-primary(ng-click="editModel()" type='submit' ng-disabled="modelEditForm.$invalid" ng-if="mode!='createModel'") Update Model 

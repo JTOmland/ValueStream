@@ -16,10 +16,10 @@ md-card(ng-repeat="model in models track by $index")
                         md-icon.journeyBuilderTreeActionIcon(ng-click="editProduct($event,model, product)") create
                         md-icon.md-icon-button.journeyBuilderTreeActionIcon(ng-click="deleteProduct($event, model, product)") delete
                 md-card-content
-                    div()
+                    md-content(style='max-height: 200px')
                         ol()
                             li(ng-repeat="(key, value) in product.Demand")
-                                {{key}} {{value}}
+                                {{key | date:'yy-MMM'}} {{value}}
                     md-button.md-raised.md-primary(ng-click="editDemand($event, model, product)") Edit Product
             md-button.md-raised.md-primary(ng-click="addProducts()") Add Product
     md-divider

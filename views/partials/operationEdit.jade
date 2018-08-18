@@ -1,0 +1,25 @@
+md-dialog(flex)
+    md-toolbar
+        .md-toolbar-tools
+            h2 Operation Edit  
+            span(flex)
+            md-button.md-icon-button(ng-click='closeOperationEdit()')
+                md-icon close
+      md-dialog-content(flex layout='row')
+        md-content(layout='row' flex='45')
+          form(name='operationEditForm')
+            md-content.md-padding(layout='column')
+                .md-headline ModelID : {{operation.ModelID}}
+                md-input-container.md-block(flex-gt-xs)
+                    label Operation Name
+                    input(ng-model='operation.Name' required="", name="name")
+                    div(ng-messages="operationEditForm.name.$error")
+                    div(ng-messages="required") Operation name is required.
+                md-input-container.md-block(flex-gt-xs)
+                    label Description
+                    input(ng-model='operation.Description')
+                md-input-container.md-block(flex-gt-xs)
+                    label Region
+                    input(ng-model='operation.RegionID')
+                md-button.md-raised.md-primary(ng-click="createOperation()" type='submit' ng-disabled="operationEditForm.$invalid" ng-if="mode=='create'") Create Operation
+                md-button.md-raised.md-primary(ng-click="editOperation()" type='submit' ng-disabled="workcenterEditForm.$invalid" ng-if="mode!='create'") Update Operation 

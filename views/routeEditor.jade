@@ -20,29 +20,44 @@
 md-dialog
     md-toolbar
         .md-toolbar-tools
-            h2 Create or Edit Process Flow
+            h2 Create or Edit Process Step Output
             span(flex)
             md-button.md-icon-button(type='button' ng-click='close()')
                 md-icon close   
-    form(ng-cloak name="addStepForm")
-        md-dialog-content
-            .md-dialog-content(layout='row')
-            md-input-container.md-block(flex-gt-sm)
-                label Select Operation
-                md-select(ng-model ='active.operation' required name='operation')
-                    md-option(ng-repeat='product in products' value="{{operation.SiteName}}")
-                        {{operation.SiteName}}
-                div(ng-messages="addStepForm.operation.$error")
-                    div(ng-message="required") Operation is required
-            md-input-container.md-block(flex-gt-xs)
-                label Select Step Name
-                md-select(ng-model ='active.stepName' required name='title' placeholder='testPlaceholder')
-                    md-option(ng-repeat='process in processSteps' value="{{process.title}}")
-                        {{process.title}}
-                div(ng-messages="addStepForm.title.$error")
-                    div(ng-message="required") Step is required
-            md-button(type='submit' ng-click='save()') Submit
-            md-button(ng-click='close()' type='button' formnovalidate) Cancel
+    md-dialog-content
+        .md-dialog-content(layout='row')
+            md-content(layout='row' flex)
+                form(name='processSteopEditForm')
+                    md-content.md-padding(layout='column')
+                        .md-headline ModelID : {{processStep.ModelID}}
+                        md-input-container.md-block(flex-gt-xs)
+                            label Name Final Output
+                            input(ng-model='active.Name' required="", name="Name")
+                            div(ng-messages="processStepEditForm.Name.$error")
+                                div(ng-messages="required") Name is required.
+                        md-input-container.md-block(flex-gt-xs)
+                            label Description
+                            input(ng-model='active.Description')
+                        md-input-container.md-block(flex-gt-xs)
+                            label Internal Id
+                            input(ng-model='active.InternalId')
+                        
+                        md-input-container.md-block(flex-gt-xs)
+                            label Select Operation
+                            md-select(ng-model ='active.Operation' required="", name='Operation')
+                                md-option(ng-repeat='operation in operations' ng-value="operation")
+                                    {{operation.Name}}
+                            div(ng-messages="processStepEditForm.Operation.$error")
+                                div(ng-message="required") Operation is required
+                        md-input-container.md-block(flex-gt-xs ng-show='active.Operation')
+                            label Select Primary Workcenter
+                            md-select(ng-model ='active.primaryWorkCenter' required="", name="primaryWorkCenter")
+                                md-option(ng-repeat='workcenter in active.Operation.WorkCenters' ng-value="workcenter")
+                                    {{workcenter.Name}}
+                            div(ng-messages="processStepEditForm.primaryWorkCenter.$error")
+                                div(ng-message="required") Primary workcenter is required
+                        md-button.md-primary(type='submit' ng-click='save()') Submit
+                        md-button(ng-click='close()' type='button' formnovalidate) Cancel
                   
                     
                     
