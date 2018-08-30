@@ -10,7 +10,8 @@ function ClientService() {
        models : [],
        activeModel : {},
        operations : [],
-       fisnishedGoodOutputs: []
+       fisnishedGoodOutputs: [],
+       activeRoute : {}
     };
     return service;
 }

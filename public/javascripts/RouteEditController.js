@@ -21,10 +21,23 @@ vsapp.controller('RouteEditController', ['$scope', '$mdDialog', 'dialogLocals', 
         } else {
             if (dialogLocals.mode == 'create') {
                 console.log('saving with no parent so filling default workcenter information')
-                $scope.active.UsedWorkCenters = fillDefaultWorkCenterInformation($scope.active.Operation.WorkCenters[0]);
+                _.each($scope.active.Operation.WorkCenters, function(wc) {
+                    $scope.active.UsedWorkCenters.push(fillDefaultWorkCenterInformation(wc));
+                });
                 if (dialogLocals.parent) {
-                    $scope.active.WhereUsed.push(dialogLocals.parent._id);
+                    //make  as structure for where used { ParentID: "", Usages :[period: date, amount: usage]}
+                    var parentStruc = fillDefaultUsages(dialogLocals.parent._id);
+                    $scope.active.WhereUsed.push(parentStruc);
                     $scope.active.IsFinishedGood = false;
+                } else {
+                    //fill in default final demand
+                    _.each(dialogLocals.periods, function(value, key){
+                        var toPush = {period:'', amount:0};
+                        toPush.period = value;
+                        toPush.amount = 0;
+                        $scope.active.Demand.push(toPush);
+                    });
+
                 }
             }
 
@@ -52,30 +65,38 @@ vsapp.controller('RouteEditController', ['$scope', '$mdDialog', 'dialogLocals', 
         }
     }
 
+    function fillDefaultUsages(inputID) {
+        var structure = {ParentID:"", Usage: []};
+        structure.ParentID = inputID;
+       
+        _.each(dialogLocals.periods, function(value, key){
+            var toPush = {period:'', amount:1};
+            console.log("for each dialogLocals.periods, key value", key, value);
+            toPush.period = value;
+            toPush.amount = 1;
+            structure.Usage.push(toPush);
+        });
+        console.log("fillDebaultInput about to return", structure);
+        return structure;
+
+    }
+
 
     function fillDefaultWorkCenterInformation(workcenter) {
-        var wcStructure = {
+       
+        var structure = {
             WorkCenterID: '',
-            Cost: [],
-            Rate: [],
-            Yield: [],
-            Loading: [],
-            Demand: [],
-            Hours: []
-
+            WorkCenterName: '',
+            WorkCenterInformation: []
         }
         console.log("filldefault", workcenter);
-        wcStructure.WorkCenterID = workcenter._id;
+        structure.WorkCenterID = workcenter._id;
+        structure.WorkCenterName = workcenter.Name;
         _.each(workcenter.Cost, function (value, key) {
-            var toPush = { Period: key, Amount: 0 };
-            wcStructure.Cost.push(toPush);
-            wcStructure.Rate.push(toPush);
-            wcStructure.Yield.push(toPush);
-            wcStructure.Loading.push(toPush);
-            wcStructure.Demand.push(toPush);
-            wcStructure.Hours.push(toPush)
+            var toPush = { period: key, cost: 0, rate: 0, loading: 0, demand: 0, hours: 0 };
+            structure.WorkCenterInformation.push(toPush);
         });
-        return wcStructure;
+        return structure;
     }
 
 }]);

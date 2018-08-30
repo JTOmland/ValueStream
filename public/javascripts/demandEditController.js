@@ -76,7 +76,7 @@ function demandEditController($scope, $mdDialog, dialogLocals, OperationService,
                 console.log('scroll builder month year date', currentMonth, currentYear, dateHolder)
                 $scope.items.push({ year: currentYear, month: currentMonth, text: monthNames[currentMonth], header: false, date: dateHolder });
                 previousMonth = currentMonth;
-                $scope.trackingDate.setMonth($scope.trackingDate.getMonth() + 1);
+                $scope.trackingDate.setMonth($scope.trackingDate.getMonth() + 1, 1);
             }
         }
 

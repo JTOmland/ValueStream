@@ -10,7 +10,7 @@ var processStepSchema = new Schema({
     Description: String,
     InternalId: Number,
     Name: String,
-    Operation: { type: ObjectID, ref: 'operationModel' },
+    Operation: { type: ObjectID, ref: 'operationsModel' },
     Inputs: [
         {
             type: mongoose.Schema.Types.ObjectId,
@@ -20,8 +20,22 @@ var processStepSchema = new Schema({
     IsFinishedGood: Boolean,
     WhereUsed: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: processStepModel
+            ParentID: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: processStepModel
+            },
+            Usage: [
+                {
+                    period: { type: Date },
+                    amount: { type: Number }
+                }
+            ]
+        }
+    ],
+    Demand: [
+        {
+            period: { type: Date },
+            amount: { type: Number }
         }
     ],
     UsedWorkCenters: [
@@ -30,40 +44,29 @@ var processStepSchema = new Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'workCenterModel'
             },
-            Cost: [{
-                Period: { type: Date },
-                Amount: { type: Number, required: true }
-            }],
-            Rate: [{
-                Period: { type: Date },
-                Amount: { type: Number, required: true }
-            }],
-            Yield: [{
-                Period: { type: Date },
-                Amount: { type: Number, required: true }
-            }],
-            Loading: [{
-                Period: { type: Date },
-                Amount: { type: Number, required: true }
-            }],
-            Demand: [{
-                Period: { type: Date },
-                Amount: { type: Number, required: true }
-            }],
-            Hours: [{
-                Period: { type: Date },
-                Amount: { type: Number, required: true }
-            }],
+
+            WorkCenterInformation: [
+                {
+                    period: { type: Date },
+                    cost: { type: Number },
+                    rate: { type: Number },
+                    loading: { type: Number },
+                    demand: { type: Number },
+                    hours: { type: Number }
+                }
+            ]
         }
     ]
 });
 
-var autoPopulateLead = function(next) {
+var autoPopulateLead = function (next) {
     this.populate('Inputs');
+    this.populate('UsedWorkCenters.WorkCenterID');
+    this.populate('Operation');
     next();
-  };
-  
-  processStepSchema.
+};
+
+processStepSchema.
     pre('findOne', autoPopulateLead).
     pre('find', autoPopulateLead);
 
