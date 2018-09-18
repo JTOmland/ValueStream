@@ -60,6 +60,7 @@ function RouteDetailsController($scope, $mdDialog, $mdToast, $rootScope, ClientS
         console.log(ev, index);
         $scope.currentPeriod = index;
         $scope.enteredValue = ev.currentTarget.value
+        console.log("scope.enteredValue = ", $scope.enteredValue, ev.currentTarget.value, ev.target.value)
     }
 
     function daysBetween(date1, date2) {
