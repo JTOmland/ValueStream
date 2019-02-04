@@ -1,0 +1,34 @@
+md-dialog
+    md-toolbar
+        .md-toolbar-tools
+            h2 For {{parent.name}} Add Usage Of {{child.name}}
+            span(flex)
+            md-button.md-icon-button(type='button' ng-click='close()')
+                md-icon close   
+    md-dialog-content
+        md-content(layout='column' flex)
+            section(layout="row" layout-phone="column" layout-align="center center" style="background-color:lightblue")
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(1)" style="background-color:green") 1
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(10)" style="background-color:green") 10
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(50)" style="background-color:green") 50
+            section(layout="row" layout-phone="column" layout-align="center center" style="background-color:lightblue")
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(100)" style="background-color:green") 100
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(500)" style="background-color:green") 500
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(1000)" style="background-color:green") 1000
+            section(layout="row" layout-phone="column" layout-align="center center" style="background-color:lightblue")
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(-1)" style="background-color:lightred") -1
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(-10)" style="background-color:lightred") -10
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(-50)" style="background-color:lightred") -50
+            section(layout="row" layout-phone="column" layout-align="center center" style="background-color:lightblue")
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(-100)" style="background-color:lightred") -100
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(-500)" style="background-color:lightred") -500
+                md-button.md-fab(aria-label="Time" ng-click="clickedNumber(-1000)" style="background-color:lightred") -1000
+            section(layout="row" layout-phone="column" layout-align="center center")
+                md-input-container.md-block(flex-gt-xs)
+                    label Total
+                    input(ng-model='total' type="number")
+            section(layout="row" layout-phone="column" layout-align="center center")
+                 md-input-container.md-block(flex-gt-xs)
+                    md-button.md-primary(type='submit' ng-click='save()') Create Item
+                    md-button(ng-click='close()' type='button' formnovalidate) Cancels
+        

@@ -31,6 +31,21 @@ router.get('/routeEditor', function(req, res, next){
   res.render('routeEditor');
 });
 
+router.get('/maker', function(req, res, next){
+  console.log("returning componentMaker")
+  res.render('maker');
+});
+
+router.get('/numberPad', function(req, res, next){
+  console.log("returning numberPad")
+  res.render('numberPad');
+});
+
+router.get('/partials/uploader', function(req, res, next){
+  res.render('uploader');
+});
+
+
 // router.get('/operations', function(req, res, next){
 //   res.render('/partials/operations');
 // });

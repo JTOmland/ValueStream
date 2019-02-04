@@ -12,11 +12,21 @@ var workcenterTest = require('../models/WorkCenter');
 var productTest = require('../models/Product');
 var entities = require('../models/entityModel');
 var components = require('../models/componentModel');
+var uploader = require('./uploader');
+multer = require('multer');
+var upload = multer({
+    dest: '/tmp/'
+});
 
 module.exports = function (app) {
     
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+
+    app.post('/api/fileupload/', upload.single('file'), function(req, res, next) {
+        console.log("api/fileupload right before uploader.uploadSpreadsheet");
+        uploader.uploadSpreadsheet(req, res, next);
+    });
    
     app.get('/api/model', function (req, res) {
         console.log("api/model get called");
@@ -193,21 +203,34 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/api/finishedGoodOuput/:ModelID', function(req, res){
+    // app.get('/api/finishedGoodOuput/:ModelID', function(req, res){
+    //     console.log('api/finishedGoodOuput');
+    //     output.find({IsFinishedGood: true, ModelID: req.params.ModelID}).exec(function(err, finishedGoods){
+    //         if(err) {
+    //             errorHandler(err, req, res);
+    //         } else {
+    //             console.log("api/finishedGoodOutputs results", finishedGoods);
+    //             console.log("type of response", typeof(finishedGoods));
+    //             //for(var ps = 0; ps < finishedGoods.length(); ps++) {
+    //                 console.log("PS", finishedGoods[0]);
+    //             //}
+    //             res.send(finishedGoods);
+    //         }
+    //     });
+    // });
+
+    app.get('/api/finishedGoodOuput', function(req, res){
         console.log('api/finishedGoodOuput');
-        output.find({IsFinishedGood: true, ModelID: req.params.ModelID}).exec(function(err, finishedGoods){
+        components.find({type: "Finished Good"}).exec(function(err, finishedGoods){
             if(err) {
                 errorHandler(err, req, res);
             } else {
                 console.log("api/finishedGoodOutputs results", finishedGoods);
-                console.log("type of response", typeof(finishedGoods));
-                //for(var ps = 0; ps < finishedGoods.length(); ps++) {
-                    console.log("PS", finishedGoods[0]);
-                //}
                 res.send(finishedGoods);
             }
         });
     });
+
 
     app.get('/api/arrayOuputs', function(req, res) {
         console.log("/api/arrayOutputs", req.params);
@@ -273,7 +296,7 @@ module.exports = function (app) {
     //Below is testing a simplified schema for game manufacturing
 
     app.get('/api/item/all', function(req,res){
-        entities.find({}).lean().exec(function(err, results){
+        components.find({}).lean().exec(function(err, results){
             if(err) {
                 errorHandler(err, req, res);
             } else {

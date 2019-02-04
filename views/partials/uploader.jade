@@ -1,0 +1,14 @@
+//-                 md-card-content
+md-dialog.fullscreen-dialog
+    md-toolbar
+        .md-toolbar-tools
+            h2 Upload A CSV File
+            span(flex)
+            md-button.md-icon-button(type='button' ng-click='close()')
+                md-icon close   
+    md-dialog-content
+        .md-dialog-content(layout='row')
+            md-content(layout='row' flex)
+                div
+                    input#file1(type='file', name='file', multiple='', ng-files='getTheFiles($files)')
+                    input(type='button', ng-click='uploadFiles()', value='Upload')

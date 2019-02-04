@@ -1,5 +1,5 @@
 var vsapp = angular.module('vsapp', ['ngMaterial', 'ngMessages', 'ngRoute', 'mdDataTable', 'ui.tree', 'ngAnimate'])
-    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    .config(['$routeProvider', '$locationProvider','$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
         $routeProvider.
             when('/', {
                 templateUrl: '/partials/index',
@@ -42,5 +42,8 @@ var vsapp = angular.module('vsapp', ['ngMaterial', 'ngMessages', 'ngRoute', 'mdD
             });
 
         $locationProvider.html5Mode(true);
+        $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('orange')
     }]).run(function ($rootScope) {
     });

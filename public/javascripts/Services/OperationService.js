@@ -2,8 +2,10 @@ angular
     .module('vsapp')
     .factory('OperationService', OperationService);
 
-OperationService.$inject = ['$q', '$http', 'ClientService'];
-function OperationService($q, $http, ClientService) {
+OperationService.$inject = ['$q', '$http', 'ClientService', '$cacheFactory'];
+function OperationService($q, $http, ClientService, $cacheFactory) {
+    var httpCache = $cacheFactory.get('$http');
+    var countCallsToAllItems = 0;
     var service = {
         updateWorkCenter: updateWorkCenter,
         updateOperation: updateOperation,
@@ -15,8 +17,54 @@ function OperationService($q, $http, ClientService) {
         getFinishedGoodOutputs: getFinishedGoodOutputs,
         addProduct: addProduct,
         getAllIds: getAllIds,
-        updateComponent: updateComponent
+        updateComponent: updateComponent,
+        getAllItems: getAllItems,
+        uploadData
     };
+    function getAllItems() {
+        console.log("getAllItems cache value", httpCache.get('/api/item/all'));
+        countCallsToAllItems++;
+        console.log("countCalls", countCallsToAllItems);
+        // if (httpCache.get('/api/item/all') == undefined) {
+        var url = '/api/item/all';
+
+        console.log("getallItems making http call")
+        //var deferred = $q.defer();
+        $http({
+            cache: true,
+            method: 'GET',
+            url: url,
+        }).then(function (response) {
+            // trying to get the cached data
+            var cache = httpCache.get(url);
+            //var data = cache.get(url); // cacheFactory will store the cache data with full URL including params so your key should have the params
+            ClientService.allItems = response.data;
+            console.log("clientservice.allItems", ClientService.allItems);
+            return response.data;
+            //deferred.resolve(response);
+
+            // httpCache.put('/api/item/all', response.data);
+            // console.log("the cache after response is", httpCache.get('/api/item/all'))
+            // console.log("succes http call all getAllItems data ", response);
+            // deferred.resolve(response);
+            // }, function errorCallback(response) {
+            //     console.log("error on http call getAllItems data", response);
+            //     deferred.reject(response);
+
+        })
+            .catch(function (error) {
+                return $q.reject(error)
+            });
+    }
+
+
+    //return deferred.promise;
+    // } else {
+    //     console.log("getAllItems not making the http call returning cache", httpCache.get('/api/item/all'));
+    //     return httpCache.get('/api/item/all')
+    // }
+
+
 
     function updateComponent(component) {
         var deferred = $q.defer();
@@ -29,11 +77,15 @@ function OperationService($q, $http, ClientService) {
             }
         }).then(function successCallback(response) {
             console.log("succes http call for updateComponent data ", response);
+            httpCache.remove('/api/item/all');
+            console.log("upon updateComponent remove cache so getAllItems gets items", httpCache.get('/api/item/all'));
+            //call getAllItems to update cache
+            getAllItems();
             deferred.resolve(response);
         }, function errorCallback(response) {
             console.log("error on http call for updateComponent", response);
             deferred.reject(response);
-           
+
         });
 
         return deferred.promise;
@@ -55,7 +107,7 @@ function OperationService($q, $http, ClientService) {
         }, function errorCallback(response) {
             console.log("error on http call for updateOutput", response);
             deferred.reject(response);
-           
+
         });
 
         return deferred.promise;
@@ -85,9 +137,9 @@ function OperationService($q, $http, ClientService) {
 
     }
 
-    function getAllIds(){
+    function getAllIds() {
         console.log("in get all ids")
-        var ids = ["5c364d9b8d2455d2a7851e2a","5c364dae8d2455d2a7851f5b","5c364f38799fc1d61ae4f579"]
+        var ids = ["5c364d9b8d2455d2a7851e2a", "5c364dae8d2455d2a7851f5b", "5c364f38799fc1d61ae4f579"]
         //console.log("stringify ids", JSON.stringify(ids));
         var deferred = $q.defer();
         $http({
@@ -137,16 +189,34 @@ function OperationService($q, $http, ClientService) {
 
     }
 
-    function getFinishedGoodOutputs(ModelID) {
+    //xhr upload to webserver, not api
+    function uploadData(formData) {
+        var deferred = $q.defer();
+        $http({
+            //this is weird, I blame angular: http://uncorkedstudios.com/blog/multipartformdata-file-upload-with-angularjs
+            headers: { 'Content-Type': undefined },
+            method: 'POST',
+            url: Urls.uploadUrl,
+            data: formData,
+            transformRequest: angular.identity
+        }).success(function (data, status) {
+            deferred.resolve(data);
+        }).error(function (data, status) {
+            deferred.reject(data, status);
+        });
+        return deferred.promise;
+    }
+
+    function getFinishedGoodOutputs() {
         var deferred = $q.defer();
         $http({
             method: 'GET',
-            url: '/api/finishedGoodOuput/' + ModelID
+            url: '/api/finishedGoodOuput'
         }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
             deferred.resolve(response);
-            //ClientService.operations = response.data;
+            ClientService.finishedGoodOutputs = response.data;
             console.log("succes http call for all finished good outputs ", response.data);
             deferred.resolve(response.data);
         }, function errorCallback(response) {
@@ -159,6 +229,28 @@ function OperationService($q, $http, ClientService) {
         return deferred.promise;
 
     }
+    // function getFinishedGoodOutputs(ModelID) {
+    //     var deferred = $q.defer();
+    //     $http({
+    //         method: 'GET',
+    //         url: '/api/finishedGoodOuput/' + ModelID
+    //     }).then(function successCallback(response) {
+    //         // this callback will be called asynchronously
+    //         // when the response is available
+    //         deferred.resolve(response);
+    //         //ClientService.operations = response.data;
+    //         console.log("succes http call for all finished good outputs ", response.data);
+    //         deferred.resolve(response.data);
+    //     }, function errorCallback(response) {
+    //         console.log("error on http call for all finished good outputs", response);
+    //         deferred.reject(response);
+    //         // called asynchronously if an error occurs
+    //         // or server returns response with an error status.
+    //     });
+
+    //     return deferred.promise;
+
+    // }
 
     function getModels() {
         var deferred = $q.defer();
@@ -171,7 +263,7 @@ function OperationService($q, $http, ClientService) {
             ClientService.models = response.data;
             console.log("succes http call models data ", response);
             deferred.resolve(response);
-            
+
         }, function errorCallback(response) {
             console.log("error on http call models data", response);
             deferred.reject(response);
@@ -266,22 +358,22 @@ function OperationService($q, $http, ClientService) {
         var deferred = $q.defer();
         var product1 = {
             Name: "Iron Ore",
-            Demand: [100,200],
-            Inputs: [ 
+            Demand: [100, 200],
+            Inputs: [
             ]
         }
-       var product2 = {
+        var product2 = {
             Name: "Iron Plate",
             Demand: [],
-            Inputs: [ 
+            Inputs: [
                 {
                     Input: "5c34a6e1e22870c1100c1209",
                     Amount: 100
-                    
+
                 }
             ]
         }
-       
+
         $http({
             method: 'POST',
             url: '/api/productTest',

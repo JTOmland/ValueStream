@@ -70,6 +70,33 @@ function operationsController($scope, $mdDialog, DataFactory, idFactory, Operati
 
     }
 
+
+    $scope.upload = function(){
+        console.log("$scope.upload triggered");
+
+        $mdDialog.show({
+            controller: 'fileUploadController',
+            templateUrl: '/partials/uploader',
+            clickOutsideToClose: true,
+            fullscreen: false,
+            dialogLocals: ''
+        }).then(function (filedata) {
+            console.log("uploader dialog closed returning", filedata);
+
+        });
+
+        // var file = document.getElementById('file').files[0];
+        // if(typeof file == 'undefined') return;
+        // var site = $scope.activeSite.subdomain;
+        // var formData = new FormData();
+        // formData.append('file', file, file.name);
+        // formData.append('site', site);
+        // $scope.uploading = true;
+        // SiteService.uploadData(formData).then(function(data){
+        //     $scope.status = data.status;
+        // });
+    }
+
     $scope.addWorkCenter = function (ev, model, operation) {
         console.log('addworkcenter ev, model, operation', ev, model, operation);
         var workcenter = {
@@ -84,13 +111,6 @@ function operationsController($scope, $mdDialog, DataFactory, idFactory, Operati
             workcenter.Cost[period] = 0;
             workcenter.Downtime[period] = 0;
         })
-
-        // var trackingDate = angular.copy(new Date(model.PeriodStart));
-        // for (var i = 0; i < 60; i++) {
-        //     workcenter.Cost[trackingDate.getTime()] = 0;
-        //     workcenter.Downtime[trackingDate.getTime()] = 0;
-        //     trackingDate.setMonth(trackingDate.getMonth() + 1);
-        // }
 
         var items = {
             operation: operation,
