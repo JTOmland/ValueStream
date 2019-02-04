@@ -13,9 +13,10 @@ var processStepSchema = new Schema({
     Operation: { type: ObjectID, ref: 'operationsModel' },
     Inputs: [
         {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: processStepModel
+            _id: {type: String, ref: processStepModel},
+            BaseUsage: { type: Number }
         }
+
     ],
     IsFinishedGood: Boolean,
     WhereUsed: [
@@ -49,6 +50,7 @@ var processStepSchema = new Schema({
                 {
                     period: { type: Date },
                     cost: { type: Number },
+                    usage: { type: Number },
                     rate: { type: Number },
                     loading: { type: Number },
                     demand: { type: Number },
@@ -60,7 +62,7 @@ var processStepSchema = new Schema({
 });
 
 var autoPopulateLead = function (next) {
-    this.populate('Inputs');
+    this.populate('Inputs._id');
     this.populate('UsedWorkCenters.WorkCenterID');
     this.populate('Operation');
     next();

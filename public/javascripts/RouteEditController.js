@@ -6,7 +6,7 @@ vsapp.controller('RouteEditController', ['$scope', '$mdDialog', 'dialogLocals', 
         $scope.active = angular.copy(dialogLocals.processStep);
 
     }
-    console.log('scope.active before edit', $scope.active);
+    console.log('Fscope.active before edit', $scope.active);
     console.log("parent", dialogLocals.parent);
 
     $scope.close = function () {
@@ -47,12 +47,25 @@ vsapp.controller('RouteEditController', ['$scope', '$mdDialog', 'dialogLocals', 
                 console.log('Calling BrokerService and sending $scope.operation')
                 if (dialogLocals.parent) {
                     console.log("added step has a parent.  Pushing response step into parent and updating. Parent", dialogLocals.parent);
-                    dialogLocals.parent.Inputs.push(response.data._id);
-                    OperationService.updateOutput(dialogLocals.parent).then(function (parent) {
-                        console.log("returned from parent update and got data", parent.data);
-                        BrokerService.outputAdded(parent.data);
-                        $mdDialog.hide(parent.data);
-                    });
+                    var inputStructure = {_id:response.data._id, BaseUsage: 1}//one by default and can be increased or decreasted later
+                    console.log("inputStructure", inputStructure);
+                    console.log("dialogLocals.parent", dialogLocals.parent);
+                    if(dialogLocals.parent.BaseUsage){
+                        dialogLocals.parent._id.Inputs.push(inputStructure);
+                        OperationService.updateOutput(dialogLocals.parent._id).then(function (parent) {
+                            console.log("returned from parent update and got data", parent.data);
+                            BrokerService.outputAdded(parent.data);
+                            $mdDialog.hide(parent.data);
+                        });
+                    } else {
+                        dialogLocals.parent.Inputs.push(inputStructure);
+                        OperationService.updateOutput(dialogLocals.parent).then(function (parent) {
+                            console.log("returned from parent update and got data", parent.data);
+                            BrokerService.outputAdded(parent.data);
+                            $mdDialog.hide(parent.data);
+                        });
+                    }
+                    
 
                 } else {
                     BrokerService.outputAdded(response.data);

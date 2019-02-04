@@ -33,6 +33,10 @@ var vsapp = angular.module('vsapp', ['ngMaterial', 'ngMessages', 'ngRoute', 'mdD
                 templateUrl: 'partials/routeDetails',
                 controller: RouteDetailsController
             }).
+            when('/partials/productBOM', {
+                templateUrl: 'partials/productBOM',
+                controller: ProductBOMController
+            }).
             otherwise({
                 redirectTo: '/'
             });

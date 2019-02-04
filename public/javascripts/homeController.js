@@ -4,7 +4,7 @@ homeController.$inject = ['$scope', 'OperationService'];
 
 
 function homeController($scope, OperationService) {
-
+    console.log("homecontroller")
     $scope.loadOperations = function(modelID) {
   
         OperationService.getOperations(modelID).then(function(response){
@@ -45,8 +45,15 @@ function homeController($scope, OperationService) {
             
         });
     }
+  
 
     $scope.init = function () {
+        console.log("Init homeController followed by add product call")
+        // OperationService.addProduct().then(function(resp){
+        //     console.log("respons from add product", resp)
+        // })
+
+     
         $scope.loadModels();
     }();
 };

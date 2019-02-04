@@ -21,10 +21,18 @@ md-content(layout='row' ng-if='routes.length > 0')
                         span.md-title {{product.ProductName}}
 script(type="text/ng-template" id="nodes_renderer.html").
     <div ui-tree-handle class="tree-node tree-node-content" >
-        {{item.Name}}
-        <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
-        <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
-        <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
+        <div ng-if= item.BaseUsage>
+            {{item._id.Name}}
+            <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
+            <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
+            <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
+        </div>
+         <div ng-if= item.Name>
+            {{item.Name}}
+            <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
+            <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
+            <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
+        </div>
     </div>
     <ol ui-tree-nodes="" ng-model="item.Inputs">
         <li ng-repeat="item in item.Inputs" ui-tree-node ng-include="'nodes_renderer.html'">

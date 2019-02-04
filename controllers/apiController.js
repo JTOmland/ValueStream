@@ -8,6 +8,10 @@ var workcenter = require('../models/workcenterModel');
 var errorHandler = require('./errorHandler.js');
 var fs = require('fs');
 var _ = require('lodash');
+var workcenterTest = require('../models/WorkCenter');
+var productTest = require('../models/Product');
+var entities = require('../models/entityModel');
+var components = require('../models/componentModel');
 
 module.exports = function (app) {
     
@@ -20,7 +24,7 @@ module.exports = function (app) {
             if (err) {
                 errorHandler(err, req, res);
             } else {
-                console.log("apiModel about to return", results)
+                //console.log("apiModel about to return", results)
                 res.send(results);
             }
         });
@@ -151,13 +155,39 @@ module.exports = function (app) {
 
     });
 
+    app.post('/api/component', function (req, res) {
+        console.log("post api/component body", req.body);
+        if (req.body._id) {
+            console.log("updateing component id was found")
+            components.findOneAndUpdate({ _id: req.body._id }, { $set: { name: req.body.name, inputs: req.body.inputs, usages: req.body.usages, type: req.body.type, description: req.body.description} },
+                function (err, data) {
+                    if (err) {
+                        errorHandler(err, req, res);
+                    } else {
+                        res.send(data);
+                    };
+                });
+
+        } else {
+            var newComponent = new components(req.body);
+            newComponent.save(function (err, response) {
+                if (err) {
+                    errorHandler(err, req, response);
+                } else {
+                    res.send(response);
+                };
+            });
+        };
+
+    });
+
     app.get('/api/operations/:ModelID', function (req, res) {
         console.log("api/operations get called request");
         operation.find({ ModelID: req.params.ModelID }).populate('WorkCenters').exec(function (err, results) {
             if (err) {
                 errorHandler(err, req, res);
             } else {
-                console.log("api/operations get results", results);
+                //console.log("api/operations get results", results);
                 res.send(results);
             }
         });
@@ -165,15 +195,44 @@ module.exports = function (app) {
 
     app.get('/api/finishedGoodOuput/:ModelID', function(req, res){
         console.log('api/finishedGoodOuput');
-        output.find({IsFinishedGood: true, ModelID: req.params.ModelID}, function(err, finishedGoods){
+        output.find({IsFinishedGood: true, ModelID: req.params.ModelID}).exec(function(err, finishedGoods){
             if(err) {
                 errorHandler(err, req, res);
             } else {
                 console.log("api/finishedGoodOutputs results", finishedGoods);
+                console.log("type of response", typeof(finishedGoods));
+                //for(var ps = 0; ps < finishedGoods.length(); ps++) {
+                    console.log("PS", finishedGoods[0]);
+                //}
                 res.send(finishedGoods);
             }
         });
     });
+
+    app.get('/api/arrayOuputs', function(req, res) {
+        console.log("/api/arrayOutputs", req.params);
+       // var thisstuff = JSON.parse(req.params);
+       // console.log('this stuff', thisstuff);
+        var ids = ["5c364d9b8d2455d2a7851e2a","5c364dae8d2455d2a7851f5b","5c364f38799fc1d61ae4f579"]
+
+        output.find({_id:{$in:ids}}).exec(function(err,items){
+            if(err) {
+                errorHandler(err, req, res);
+            } else {
+               // console.log("apie/arrayOutputs results", items);
+                res.send(items);
+            }
+        });
+    });
+    // model.find({
+    //     '_id': { $in: [
+    //         mongoose.Types.ObjectId('4ed3ede8844f0f351100000c'),
+    //         mongoose.Types.ObjectId('4ed3f117a844e0471100000d'), 
+    //         mongoose.Types.ObjectId('4ed3f18132f50c491100000e')
+    //     ]}
+    // }, function(err, docs){
+    //      console.log(docs);
+    // });
 
     app.get('/api/outputs/:OutputID', function (req, res) {
         console.log("api/outputs/:OutputID called params", req.params);
@@ -210,4 +269,42 @@ module.exports = function (app) {
         });
         res.send('Success');
     });
+
+    //Below is testing a simplified schema for game manufacturing
+
+    app.get('/api/item/all', function(req,res){
+        entities.find({}).lean().exec(function(err, results){
+            if(err) {
+                errorHandler(err, req, res);
+            } else {
+                res.send(results);
+            };
+        });
+    });
+
+    app.post('/api/productTest', function (req, res) {
+        console.log("api/productTest body", req.body);
+        if (req.body._id) {
+            productTest.findOneAndUpdate({ _id: req.body._id }, { $set: { Name: req.body._name, Demand: req.body.Demand, Inputs: req.body/Inputs } },
+                function (err, data) {
+                    if (err) {
+                        errorHandler(err, req, res);
+                    } else {
+                        res.send("Success");
+                    };
+                });
+
+        } else {
+            var newProduct = new productTest(req.body);
+            newProduct.save(function (err, response) {
+                if (err) {
+                    errorHandler(err, req, response);
+                } else {
+                    res.send("Success");
+                };
+            });
+        };
+
+    });
+   
 }

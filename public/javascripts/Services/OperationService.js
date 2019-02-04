@@ -12,8 +12,33 @@ function OperationService($q, $http, ClientService) {
         getOperations: getOperations,
         updateOutput: updateOutput,
         getOutput: getOutput,
-        getFinishedGoodOutputs: getFinishedGoodOutputs
+        getFinishedGoodOutputs: getFinishedGoodOutputs,
+        addProduct: addProduct,
+        getAllIds: getAllIds,
+        updateComponent: updateComponent
     };
+
+    function updateComponent(component) {
+        var deferred = $q.defer();
+        $http({
+            method: 'POST',
+            url: '/api/component',
+            data: component,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            console.log("succes http call for updateComponent data ", response);
+            deferred.resolve(response);
+        }, function errorCallback(response) {
+            console.log("error on http call for updateComponent", response);
+            deferred.reject(response);
+           
+        });
+
+        return deferred.promise;
+
+    }
 
     function updateOutput(output) {
         var deferred = $q.defer();
@@ -49,6 +74,35 @@ function OperationService($q, $http, ClientService) {
             ClientService.operations = response.data;
             console.log("succes http call operations data ", response);
             deferred.resolve(response);
+        }, function errorCallback(response) {
+            console.log("error on http call operations data", response);
+            deferred.reject(response);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+
+        return deferred.promise;
+
+    }
+
+    function getAllIds(){
+        console.log("in get all ids")
+        var ids = ["5c364d9b8d2455d2a7851e2a","5c364dae8d2455d2a7851f5b","5c364f38799fc1d61ae4f579"]
+        //console.log("stringify ids", JSON.stringify(ids));
+        var deferred = $q.defer();
+        $http({
+            method: 'GET',
+            url: '/api/arrayOuputs',
+            params: {
+                _id: ids
+            }
+        }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            deferred.resolve(response);
+            //ClientService.operations = response.data;
+            console.log("succes http call operations data ", response.data);
+            deferred.resolve(response.data);
         }, function errorCallback(response) {
             console.log("error on http call operations data", response);
             deferred.reject(response);
@@ -205,6 +259,51 @@ function OperationService($q, $http, ClientService) {
         });
 
         return deferred.promise;
+    }
+
+
+    function addProduct(product) {
+        var deferred = $q.defer();
+        var product1 = {
+            Name: "Iron Ore",
+            Demand: [100,200],
+            Inputs: [ 
+            ]
+        }
+       var product2 = {
+            Name: "Iron Plate",
+            Demand: [],
+            Inputs: [ 
+                {
+                    Input: "5c34a6e1e22870c1100c1209",
+                    Amount: 100
+                    
+                }
+            ]
+        }
+       
+        $http({
+            method: 'POST',
+            url: '/api/productTest',
+            data: product2,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            // this callback will be called asynchronously
+            // when the response is available
+            deferred.resolve(response);
+            console.log("succes http post model ", response);
+            return response;
+        }, function errorCallback(response) {
+            console.log("error on http call for post model", response);
+            deferred.reject(response);
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+        });
+
+        return deferred.promise;
+
     }
 
 

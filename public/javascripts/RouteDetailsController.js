@@ -5,6 +5,7 @@ RouteDetailsController.$inject = ['$scope', '$mdDialog', '$mdToast', '$rootScope
 
 function RouteDetailsController($scope, $mdDialog, $mdToast, $rootScope, ClientService, OperationService, $routeParams) {
     $scope.activeRoute = ClientService.activeRoute;
+    $scope.status = "demand";
 
 
 
@@ -20,20 +21,21 @@ function RouteDetailsController($scope, $mdDialog, $mdToast, $rootScope, ClientS
 
     console.log("This is the routeparams", $routeParams.id);
     console.log("this is the ativeRoute from clientservice", $scope.activeRoute);
-    if ($scope.activeRoute.Demand[0].period) {
+    if ($scope.activeRoute.Demand[0]) {
+        if($scope.activeRoute.Demand[0].period)
         setUpDatePicker($scope.activeRoute.Demand[0].period);
     }
+
+    $scope.currentNavItem = 'page1';
+
+    $scope.goto = function(page) {
+      $scope.status = page;
+    };
 
 
     function setUpDatePicker(periodStart) {
         $scope.startDate = new Date(periodStart);
         $scope.trackingDate = new Date(periodStart);
-        // $scope.massChangeAmount = 0;
-        // $scope.endDate = angular.copy(periodStart);
-        // $scope.endDate.setMonth($scope.endDate.getMonth() + 59);
-        // $scope.periodStart = angular.copy(periodStart);
-        // $scope.periodEnd = angular.copy(periodStart);
-        // $scope.periodEnd.setMonth($scope.periodEnd.getMonth() + 59);
         for (var i = 0; i < 60; i++) {
             currentYear = $scope.trackingDate.getFullYear();
             currentMonth = $scope.trackingDate.getMonth();
@@ -61,6 +63,7 @@ function RouteDetailsController($scope, $mdDialog, $mdToast, $rootScope, ClientS
         $scope.currentPeriod = index;
         $scope.enteredValue = ev.currentTarget.value
         console.log("scope.enteredValue = ", $scope.enteredValue, ev.currentTarget.value, ev.target.value)
+        console.log("activeRoute", $scope.activeRoute);
     }
 
     function daysBetween(date1, date2) {
@@ -110,23 +113,12 @@ function RouteDetailsController($scope, $mdDialog, $mdToast, $rootScope, ClientS
                     }
                 }
                
-                
-               
                 if(index > 100) break;
 
             }
-
-
-            // for (var p = $scope.currentPeriod; p < $scope.currentPeriod + periods + 6; p++) {
-            //     if($scope.items[p].date){
-            //         console.log("item date compared to start date", daysBetween(startDate, $scope.items[p].date));
-            //     }
-               
-            //     console.log("p is ",p );
-                
-            // }
         }
         console.log("structure", structure);
+        console.log('this is active route after modification to structure', $scope.activeRoute); 
 
     }
 

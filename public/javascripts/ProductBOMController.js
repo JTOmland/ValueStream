@@ -1,10 +1,9 @@
-"use strict"
-vsapp.controller('routeController', routeController)
+vsapp.controller('ProductBOMController', ProductBOMController)
 
-routeController.$inject = ['$scope', '$mdDialog', '$mdToast', '$rootScope', '$location', 'ClientService', 'OperationService'];
+ProductBOMController.$inject = ['$scope', '$mdDialog', '$mdToast', '$location', 'ClientService', 'OperationService'];
 
 
-function routeController($scope, $mdDialog, $mdToast, $rootScope, $location, ClientService, OperationService) {
+function ProductBOMController($scope, $mdDialog, $mdToast, $location, ClientService, OperationService) {
 
     $scope.routes = [];
     $scope.indRoute = {};
@@ -130,28 +129,9 @@ function routeController($scope, $mdDialog, $mdToast, $rootScope, $location, Cli
             //console.log("response from load outputs", response);
             $scope.routes = [];
             _.each(response.data, function (output) {
-                if(output.BaseUsage){
-                    $scope.routes.push(output._id);
-                } else {
-                    $scope.routes.push(output);
-                }
-            });
-            console.log("$scope.routes after getFinishedGoodOutputs", $scope.routes);
-            var component = {
-                name: "Light Armour",
-                description: "Light protective gear used primarily by the military",
-                type: "Finished Good",
-                inputs: [{_id:"5c37b4a22ab004e54fa12bdb"}],
-                usages: [{_id:"5c37b4a22ab004e54fa12bdb", amount: 40}],
-                //_id: ""
-
-            }
-            OperationService.updateComponent(component).then(function(response){
-                console.log("This is the response for updating/creating component", response);
+                $scope.routes.push(output);
             });
         });
-
-        
     }
 
 
@@ -165,9 +145,8 @@ function routeController($scope, $mdDialog, $mdToast, $rootScope, $location, Cli
         $scope.routes = angular.copy(ClientService.finishedGoodOutputs);
         $scope.loadOutputs($scope.model._id);
 
-        console.log('Init routeController', $scope.operations);
+        console.log('Init ProductBOMController', $scope.operations);
         console.log('Init ', $scope.models);
-   
 
     }();
 
