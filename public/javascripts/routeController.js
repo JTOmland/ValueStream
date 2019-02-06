@@ -7,6 +7,7 @@ routeController.$inject = ['$scope', '$mdDialog', '$mdToast', '$rootScope', '$lo
 function routeController($scope, $mdDialog, $mdToast, $rootScope, $location, ClientService, OperationService) {
     var parent = {};
     var child = {};
+    $scope.projects = ["A", "B", "C"];
     $scope.routes = [];
     $scope.indRoute = {};
     $scope.treeOptions = {

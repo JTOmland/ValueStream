@@ -11,7 +11,7 @@ var vsapp = angular.module('vsapp', ['ngMaterial', 'ngMessages', 'ngRoute', 'mdD
             }).
             when('/status', {
                 templateUrl: 'partials/status',
-                controller: statusController
+                controller: InBoxController
             }).
             when('/routes', {
                 templateUrl: 'partials/routes',

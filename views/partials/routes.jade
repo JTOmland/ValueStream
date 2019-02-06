@@ -20,13 +20,16 @@ md-content(layout='row' ng-if='routes.length > 0')
             div(flex ='50')
         
 script(type="text/ng-template" id="nodes_renderer.html").
-    <div ui-tree-handle class="tree-node tree-node-content" ng-mouseover="hoverIn(item)">
-         <div ng-if= item.name>
-            {{item.name}}
-            <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
-            <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
-            <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
-        </div>
+    <div class="tree-node">
+        <md-content layout='row'>
+            <md-icon ui-tree-handle class="pull-left"> edit </md-icon>
+            <div clas="tree-node-content">
+                <input type="text" ng-model = "item.name">
+                <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
+                <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
+                <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
+            </div>
+        </md-content>
     </div>
     <div ng-if= item.inputs>
         <ol ui-tree-nodes="" ng-model="item.inputs">
