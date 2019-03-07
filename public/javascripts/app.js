@@ -2,16 +2,16 @@ var vsapp = angular.module('vsapp', ['ngMaterial', 'ngMessages', 'ngRoute', 'mdD
     .config(['$routeProvider', '$locationProvider','$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: '/partials/index',
-                controller: homeController
+                templateUrl: '/partials/Inbox',
+                controller: InBoxController
             }).
             when('/demand', {
                 templateUrl: 'partials/demand',
                 controller: capacityController
             }).
             when('/status', {
-                templateUrl: 'partials/status',
-                controller: InBoxController
+                templateUrl: 'partials/Home',
+                controller: homeController
             }).
             when('/routes', {
                 templateUrl: 'partials/routes',

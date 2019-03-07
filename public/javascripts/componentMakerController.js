@@ -1,10 +1,21 @@
-vsapp.controller('componentMakerController', ['$scope', '$mdDialog', 'dialogLocals', 'OperationService', 'BrokerService', function ($scope, $mdDialog, dialogLocals, OperationService, BrokerService) {
+vsapp.controller('componentMakerController', ['$scope', '$mdDialog', 'dialogLocals', 'OperationService', 'BrokerService','$element', function ($scope, $mdDialog, dialogLocals, OperationService, BrokerService, $element) {
     $scope.active = {};
     $scope.operations = dialogLocals.operations;
     //$scope.processStep = dialogLocals.processStep;
-    if (dialogLocals.processStep) {
-        $scope.active = angular.copy(dialogLocals.processStep);
+    console.log("dialogLocals", dialogLocals);
+    $scope.setFocus = function(){
+        console.log("setFocus run")
+        var currentElement = angular.element('#projectName');
+        console.log("currentElement", currentElement);
+        currentElement.focus();
+    }
 
+    if (dialogLocals.project) {
+        $scope.active = angular.copy(dialogLocals.project);
+
+    }
+    if (dialogLocals.mode == 'create'){
+        $scope.active.type = "Area Of Responsibility";
     }
     console.log('$scope.active before edit', $scope.active);
     console.log("parent", dialogLocals.parent);
@@ -19,6 +30,7 @@ vsapp.controller('componentMakerController', ['$scope', '$mdDialog', 'dialogLoca
         //todod this can be changed cleaned up.  do update component then do the if and use the response data for either.
 
         if (dialogLocals.mode == 'create') {
+            $scope.active.type = 'AOR';
             console.log('saving with no parent so not adding to a parent');
             console.log('create component operationservice call', $scope.active);
             OperationService.updateComponent($scope.active).then(function (response) {

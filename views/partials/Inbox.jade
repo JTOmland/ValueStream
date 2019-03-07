@@ -1,0 +1,26 @@
+md-card(ng-repeat="project in projects" min-width='800px')
+    md-card-title(layout="row")
+        md-card-header-text
+            span.md-title {{project}}
+    md-card-content(layout='column' layout-align='center' ng-repeat='action in actions | filter: project: project')
+        md-input-container(flex='100')
+            label Action
+            input(placeholder ='{{action.title}}', ng-model='action.title')
+            //- div(layout-align="end center")
+            //-     md-progress-circular(md-mode="determinate" value='100' class="md-accent md-hue-1")
+        div(layout='row')
+            md-autocomplete.no-margin(placeholder="{{action.context && action.context || 'No Context'}}" md-floating-label="Context" md-selected-item='action.context', md-selected-item-change= 'selectedContextChange(context, action)', md-search-text='searchContextText', md-items='context in contextSearch(searchContextText)', md-item-text='context', md-min-length ="2")
+                span(md-highlight-text='searchContextText') {{context}}
+                md-not-found
+                    a(ng-click='newContext(searchContextText, action)') Create new context!
+            md-autocomplete.no-margin(placeholder='No Project' md-floating-label="Project" md-selected-item='action.project', md-selected-item-change= 'selectedProjectChange(project, action)', md-search-text='searchProjectText', md-items='project in projectSearch(searchProjectText)', md-item-text='project', md-min-length ="2")
+                span(md-highlight-text='searchProjectText') {{project}}
+                md-not-found
+                    a(ng-click='newProject(searchProjectText)') Create new project!
+            md-input-container
+                label Defer
+                md-datepicker(ng-model="defer" name="dateField" md-hide-icons="calendar")
+            md-input-container
+                label Due
+                md-datepicker(ng-model="due" name="dateField" md-hide-icons="calendar")
+        //- md-divider

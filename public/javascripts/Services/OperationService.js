@@ -14,11 +14,12 @@ function OperationService($q, $http, ClientService, $cacheFactory) {
         getOperations: getOperations,
         updateOutput: updateOutput,
         getOutput: getOutput,
-        getFinishedGoodOutputs: getFinishedGoodOutputs,
+        getAOR: getAOR,
         addProduct: addProduct,
         getAllIds: getAllIds,
         updateComponent: updateComponent,
         getAllItems: getAllItems,
+        deleteComponent: deleteComponent,
         uploadData
     };
     function getAllItems() {
@@ -64,7 +65,32 @@ function OperationService($q, $http, ClientService, $cacheFactory) {
     //     return httpCache.get('/api/item/all')
     // }
 
+    function deleteComponent(component) {
 
+        var deferred = $q.defer();
+        $http({
+            method: 'DELETE',
+            url: '/api/deleteComponent',
+            data: component,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function successCallback(response) {
+            console.log("succes http call for delete component", response);
+            httpCache.remove('/api/item/all');
+            console.log("upon updateComponent remove cache so getAllItems gets items", httpCache.get('/api/item/all'));
+            //call getAllItems to update cache
+            getAllItems();
+            deferred.resolve(response);
+        }, function errorCallback(response) {
+            console.log("error on http call for updateComponent", response);
+            deferred.reject(response);
+
+        });
+
+        return deferred.promise;
+
+    }
 
     function updateComponent(component) {
         var deferred = $q.defer();
@@ -207,20 +233,21 @@ function OperationService($q, $http, ClientService, $cacheFactory) {
         return deferred.promise;
     }
 
-    function getFinishedGoodOutputs() {
+    function getAOR() {
+        //AOR is areas of responsibility
         var deferred = $q.defer();
         $http({
             method: 'GET',
-            url: '/api/finishedGoodOuput'
+            url: '/api/AOR'
         }).then(function successCallback(response) {
             // this callback will be called asynchronously
             // when the response is available
             deferred.resolve(response);
-            ClientService.finishedGoodOutputs = response.data;
-            console.log("succes http call for all finished good outputs ", response.data);
+            ClientService.AOR = response.data;
+            console.log("succes http call for all top level areas ", response.data);
             deferred.resolve(response.data);
         }, function errorCallback(response) {
-            console.log("error on http call for all finished good outputs", response);
+            console.log("error on http call for all top level areas", response);
             deferred.reject(response);
             // called asynchronously if an error occurs
             // or server returns response with an error status.
@@ -229,29 +256,7 @@ function OperationService($q, $http, ClientService, $cacheFactory) {
         return deferred.promise;
 
     }
-    // function getFinishedGoodOutputs(ModelID) {
-    //     var deferred = $q.defer();
-    //     $http({
-    //         method: 'GET',
-    //         url: '/api/finishedGoodOuput/' + ModelID
-    //     }).then(function successCallback(response) {
-    //         // this callback will be called asynchronously
-    //         // when the response is available
-    //         deferred.resolve(response);
-    //         //ClientService.operations = response.data;
-    //         console.log("succes http call for all finished good outputs ", response.data);
-    //         deferred.resolve(response.data);
-    //     }, function errorCallback(response) {
-    //         console.log("error on http call for all finished good outputs", response);
-    //         deferred.reject(response);
-    //         // called asynchronously if an error occurs
-    //         // or server returns response with an error status.
-    //     });
-
-    //     return deferred.promise;
-
-    // }
-
+   
     function getModels() {
         var deferred = $q.defer();
         $http({

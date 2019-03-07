@@ -1,29 +1,15 @@
 extends layout
-
 block content
-  div(ng-controller="HeaderController" layout="column" flex)
-    include navigation
-    md-toolbar(layout="row")
-        md-button.md-icon-button(aria-label="Open Side Navigation" ng-click="openSideNavPanel()")
-          md-icon reorder
-          md-tooltip(md-delay="500") Navigation Menu
-        md-button.md-icon-button.md-primary(aria-label="Run Simulations" ng-click="createVS()", style="background: #f7f7f7")
-          md-icon change_history
-          md-tooltip(md-delay="500") Create Value Streams
-        md-button.md-icon-button.md-primary(aria-label="Index Simulation" ng-show="simulationReady" ng-click="nextTurn()", style="background: #f7f7f7")
-          md-icon skip_next
-          md-tooltip(md-delay="500") Index Simulation
-        md-button.md-icon-button.md-primary(ng-click="simulationPage('/demand')", style="background: #f7f7f7")
-          md-icon flag
-          md-tooltip(md-delay="500") Simulation
-        md-button.md-icon-button.md-primary(ng-click="testAlert()", style="background: #f7f7f7")
-          md-icon flag
-          md-tooltip(md-delay="500") Test Alert
-        span(flex="20")
-        h2 Value Stream Simulation
-        span(flex="")
-        md-button.mdi-icon-button(ng-click='saveData()') Save units
-          md-icon save
-          md-tooltip(md-delay="500") Save Unit Data
-    
-    div(ng-view)
+  include navigation
+  div(ng-view style="height:100%")
+  //- md-content.md-scroll-y(ng-controller="HeaderController" layout="column")
+  //-   md-toolbar.md-toolbar-tools(layout="row")
+  //-     h2 Getting Shit Done
+  //-     md-button.mdi-icon-button(ng-click='newAction()') New Action
+  //-       md-icon add_circle
+  //-       md-tooltip(md-delay="500") Save Unit Data
+  //-     span(flex="")
+  //-     md-button.mdi-icon-button(ng-click='saveData()') Save units
+  //-       md-icon save
+  //-       md-tooltip(md-delay="500") Save Unit Data
+  

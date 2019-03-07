@@ -18,7 +18,8 @@ function InBoxController($scope, $mdDialog, $mdToast, $q, $timeout, $log) {
     //     'due': '',
     //     'defer': '',
     //     'context': '',
-    //     'project': ''
+    //     'project': '',
+
     // }
 
 
@@ -33,7 +34,11 @@ function InBoxController($scope, $mdDialog, $mdToast, $q, $timeout, $log) {
             'due': '',
             'defer': '',
             'context': '@work',
-            'project': '24J cast station'
+            'project': '24J cast station',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
         },
         {
             'type': 'action',
@@ -44,7 +49,11 @@ function InBoxController($scope, $mdDialog, $mdToast, $q, $timeout, $log) {
             'due': '',
             'defer': '',
             'context': '@phone',
-            'project': 'Purchase Nest Thermostat'
+            'project': 'Purchase Nest Thermostat',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
         },
         {
             'type': 'action',
@@ -55,10 +64,209 @@ function InBoxController($scope, $mdDialog, $mdToast, $q, $timeout, $log) {
             'due': '',
             'defer': '',
             'context': '',
-            'project': 'Improve relationships'
+            'project': 'Improve relationships',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action to check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action aato check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project2',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 3 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project three',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 4 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project four',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 5 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project five',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 6 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project six',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project seven',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project 8',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project 9',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project 10',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project 11',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project 12',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
+        },
+        {
+            'type': 'action',
+            'process': 'parrallel',
+            'title': 'A new action toaction 7 check scroll',
+            'inputs': [],
+            'status': 'active',
+            'due': '',
+            'defer': '',
+            'context': '',
+            'project': 'Some new project 13 which has a really long name to see if the thing will expand to fit',
+            'note': '',
+            'completed': false,
+            'tasktime': '',
+            'recures': ''
         }
     ]
-   
+
     $scope.contexts = [];
     $scope.projects = [];
 
@@ -131,6 +339,48 @@ function InBoxController($scope, $mdDialog, $mdToast, $q, $timeout, $log) {
         };
     }
 
+
+    $scope.addAction = function () {
+        console.log('add action')
+        
+
+        var action = {
+            type: 'action',
+            process: 'parrallel',
+            title: '',
+            inputs: [],
+            status: 'active',
+            due: '',
+            defer: '',
+            context: 'No Context',
+            project: 'No Project',
+            note: '',
+            completed: false,
+            tasktime: '',
+            recures: ''
+        }
+        var items = {
+            action: action,
+            projects: $scope.projects,
+            contexts: $scope.contexts
+
+        }
+
+        $mdDialog.show({
+            controller: 'NewActionController',
+            templateUrl: '/partials/NewAction',
+            clickOutsideToClose: true,
+            fullscreen: false,
+            panelClass: 'action-panel',
+            dialogLocals: items,
+        }).then(function (newAction) {
+            console.log("returned from dialog and action is ", newAction);
+            if(newAction) {
+                $scope.actions.push(newAction);
+            }
+        });
+    }
+
     //init temp goes through actions and builds arrays for projects and contexts
     function init() {
         _.each($scope.actions, function (action) {
@@ -150,6 +400,11 @@ function InBoxController($scope, $mdDialog, $mdToast, $q, $timeout, $log) {
 
     }
     init();
+
+    $scope.$on('openNewAction', function(){
+        console.log('received broker message to open')
+        $scope.addAction();
+    })
 
 
 

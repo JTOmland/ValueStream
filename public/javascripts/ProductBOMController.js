@@ -125,7 +125,7 @@ function ProductBOMController($scope, $mdDialog, $mdToast, $location, ClientServ
     }
 
     $scope.loadOutputs = function (modelID) {
-        OperationService.getFinishedGoodOutputs(modelID).then(function (response) {
+        OperationService.getAOR(modelID).then(function (response) {
             //console.log("response from load outputs", response);
             $scope.routes = [];
             _.each(response.data, function (output) {
@@ -137,12 +137,12 @@ function ProductBOMController($scope, $mdDialog, $mdToast, $location, ClientServ
 
 
     $scope.init = function () {
-        console.log("ClientService", ClientService.models, ClientService.operations, ClientService.finishedGoodOutputs);
+        console.log("ClientService", ClientService.models, ClientService.operations, ClientService.AOR);
         $scope.models = angular.copy(ClientService.models);
         $scope.operations = angular.copy(ClientService.operations);
         $scope.timePeriods = angular.copy($scope.models.Periods);
         $scope.model = $scope.models[0];
-        $scope.routes = angular.copy(ClientService.finishedGoodOutputs);
+        $scope.routes = angular.copy(ClientService.AOR);
         $scope.loadOutputs($scope.model._id);
 
         console.log('Init ProductBOMController', $scope.operations);

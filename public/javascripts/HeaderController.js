@@ -1,10 +1,14 @@
 vsapp.controller('HeaderController', HeaderController)
 
-HeaderController.$inject = ['$scope','$http', '$location', '$mdDialog', 'DataFactory', '$mdSidenav', '$mdToast'];
+HeaderController.$inject = ['$scope','$http', '$location', '$mdDialog', 'DataFactory', '$mdSidenav', '$mdToast', 'BrokerService'];
 
-function HeaderController($scope, $http, $location, $mdDialog, DataFactory, $mdSidenav, $mdToast) {
+function HeaderController($scope, $http, $location, $mdDialog, DataFactory, $mdSidenav, $mdToast, BrokerService) {
 
     $scope.msg = "This is a test alert from header controller";
+
+    $scope.newAction = function(){
+        BrokerService.openNewAction();
+    }
 
     $scope.showSimpleToast = function() {
         $mdToast.show(

@@ -7,6 +7,9 @@ BrokerService.$inject = ['$q', '$rootScope'];
 function BrokerService($q, $rootScope) {
   
     var service = {
+        openNewAction: function(){
+            $rootScope.$broadcast('openNewAction');
+        },
         modelAdded: function (model) {
             $rootScope.$broadcast('modelAdded', model);
         },

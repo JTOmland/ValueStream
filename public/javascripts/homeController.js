@@ -1,9 +1,9 @@
 vsapp.controller('homeController', homeController)
 
-homeController.$inject = ['$scope', 'OperationService'];
+homeController.$inject = ['$scope', 'OperationService', 'BrokerService'];
 
 
-function homeController($scope, OperationService) {
+function homeController($scope, OperationService, BrokerService) {
     console.log("homecontroller")
     $scope.loadOperations = function (modelID) {
 
@@ -16,11 +16,17 @@ function homeController($scope, OperationService) {
         });
     }
 
+    $scope.newAction= function(){
+
+        BrokerService.openNewAction();
+
+    }
+
     $scope.loadOutputs = function (modelID) {
-        OperationService.getFinishedGoodOutputs(modelID).then(function (response) {
-            console.log("get all finished good outputs respones", response)
-            ClientService.finishedGoodOutputs = angular.copy(response.data);
-            console.log("clientservice finished good ", ClientService.finishedGoodOutputs)
+        OperationService.getAOR(modelID).then(function (response) {
+            console.log("get all areas of responsibility respones", response)
+            ClientService.AOR = angular.copy(response.data);
+            console.log("clientservice AOR", ClientService.AOR)
         });
     }
 

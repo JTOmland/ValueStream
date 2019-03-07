@@ -1,7 +1,7 @@
 md-dialog
     md-toolbar
         .md-toolbar-tools
-            h2 Create or Edit A Component
+            h2 Create or Edit A Project
             span(flex)
             md-button.md-icon-button(type='button' ng-click='close()')
                 md-icon close   
@@ -10,15 +10,16 @@ md-dialog
             form(name='componentEditForm')
                 md-content.md-padding(layout='column')
                     md-input-container.md-block(flex-gt-xs)
-                        label Name Component
-                        input(ng-model='active.name' required="", name="Name")
+                        label Project Name
+                        input(type="text", ng-model='active.name' required="", name="Name", md-autofocus='true', id='projectName')
                         div(ng-messages="componentEditForm.name.$error")
                             div(ng-messages="required") Name is required.
                     md-input-container.md-block(flex-gt-xs)
-                        label Description
+                        label Desired Outcome
                         input(ng-model='active.description')
                     md-input-container.md-block(flex-gt-xs)
                         label Type
-                        input(ng-model='active.type')
+                        input(placeholder = '{{active.type}}' ng-model='active.type')
                     md-button.md-primary(type='submit' ng-click='save()') Submit
                     md-button(ng-click='close()' type='button' formnovalidate) Cancels
+                    div(ng-init="setFocus()")

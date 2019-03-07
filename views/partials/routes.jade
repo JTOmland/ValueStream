@@ -1,49 +1,25 @@
-md-content(layout = 'row')
-    md-button(type='button' ng-click='newValueStream()') Create New Route
-    md-button(type='button' ng-click="openNumberPad()") Open Number Pad
-    md-input-container.md-block(flex-gt-sm)
-        label Select Existing Route
-        md-select(ng-model ='valu' required name='')
-            md-option(ng-repeat='route in routess' value="{{route.name}}")
-                {{route.name}}
-md-content(layout='row' ng-if='routes.length > 0')
-    div(flex='50')
+
+    div(layout = 'row')
+        md-button(type='button' ng-click='newAOR()') Create New Area of Responsibility
+        md-input-container.md-block(flex-gt-sm)
+            label Select Existing Route
+            md-select(ng-model ='valu' required name='')
+                md-option(ng-repeat='route in routes' value="{{route.name}}")
+                    {{route.name}}
+    md-content(layout='column' ng-if='routes.length > 0' flex)
         h2 Active Structure
         div(id="tree-root" ui-tree="treeOptions" flex ='50')
-            ol(ng-model="routes" ui-tree-nodes="")
+            ol(ng-model="routes" ui-tree-nodes)
                 li(ng-repeat="item in routes" ui-tree-node ng-include="'nodes_renderer.html'")
-     div(flex ='50')
-        h2 Drag And Drop Existing Item
-        div(id="tree-root" ui-tree="treeOptions" flex ='50')
-            ol(ng-model="allItems" ui-tree-nodes="")
-                li(ng-repeat="item in allItems" ui-tree-node ng-include="'nodes_renderer2.html'")
-            div(flex ='50')
-        
-script(type="text/ng-template" id="nodes_renderer.html").
-    <div class="tree-node">
-        <md-content layout='row'>
-            <md-icon ui-tree-handle class="pull-left"> edit </md-icon>
-            <div clas="tree-node-content">
-                <input type="text" ng-model = "item.name">
+    script(type="text/ng-template" id="nodes_renderer.html").
+        <div ui-tree-handle class="tree-node tree-node-content" >
+            <div ng-if= item.name>
+                {{item.name}}
                 <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
                 <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
-                <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
+                <md-icon class="pull-right" data-nodrag ng-click="removeStep(this, item)">remove</md-icon>
             </div>
-        </md-content>
-    </div>
-    <div ng-if= item.inputs>
-        <ol ui-tree-nodes="" ng-model="item.inputs">
-            <li ng-repeat="item in item.inputs" ui-tree-node ng-include="'nodes_renderer.html'">
-                {{item.name}}
-            </li>
-        </ol>
-    </div>
-script(type="text/ng-template" id="nodes_renderer2.html").
-    <div ui-tree-handle class="tree-node tree-node-content" >
-         <div ng-if= item.name>
-            {{item.name}}
-            <md-icon class="pull-right" data-nodrag ng-click="editStep($event, item)">edit</md-icon>
-            <md-icon class="pull-right" data-nodrag ng-click="addStep($event, item)">add</md-icon>
-            <md-icon class="pull-right" data-nodrag ng-click="removeStep($event, item)">remove</md-icon>
         </div>
-    </div>
+        <ol ui-tree-nodes="" ng-model="item.inputs">
+            <li ng-repeat="item in item.inputs" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+        </ol>

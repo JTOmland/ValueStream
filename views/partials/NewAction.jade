@@ -1,0 +1,35 @@
+md-dialog
+    md-toolbar
+        .md-toolbar-tools
+            h2 New Action 
+            span(flex)
+            md-button.md-icon-button(ng-click='closeEdit()')
+                md-icon close
+    md-dialog-content.action-panel
+        md-content()
+            form(name='productEditForm')
+                md-content.md-padding(layout='column')
+                    md-input-container.md-block()
+                        label Action
+                        input(ng-model='action.title' required="", name="productname")
+                        div(ng-messages="productEditForm.productname.$error")
+                            div(ng-message="required") Action description is required.
+                    md-input-container
+                        label Context
+                        md-select(ng-model='selectedContext', md-selected-text='getSelectedContext()')
+                            md-optgroup(label='Contexts')
+                                md-option(ng-repeat='context in contexts' ng-value='context') {{context}}
+                    md-input-container
+                        label Project
+                        md-select(ng-model='selectedProject', md-selected-text='getSelectedProject()')
+                            md-optgroup(label='Projects')
+                                md-option(ng-repeat='project in projects' ng-value='project') {{project}}
+                    md-input-container.no-margin
+                        label Defer
+                        md-datepicker(ng-model="defer" name="dateField" md-hide-icons="calendar")
+                    md-input-container.no-margin
+                        label Due
+                        md-datepicker(ng-model="due" name="dateField" md-hide-icons="calendar")
+                    div(layout='row' layout-align="end center" flex="100")
+                        md-button.md-raised.md-primary(ng-click="createProduct()" type='submit' ng-disabled="productEditForm.$invalid" ng-if="mode=='create'") Create Product
+                        md-button.md-raised.md-primary(ng-click="editProduct()" type='submit' ng-disabled="productEditForm.$invalid" ng-if="mode!='create'") Update Product      

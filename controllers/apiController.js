@@ -23,6 +23,24 @@ module.exports = function (app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    app.delete('/api/deleteComponent', function(req, res) {
+        console.log("/api/deleteComponent", req.body);
+        components.findByIdAndRemove(req.body._id, function(err, component){
+            if(err){
+                return res.status(500).send(err);
+            } else {
+                console.log("successful delete", component._id);
+                response = {
+                    message: "Component successfully deleted",
+                    id: component._id
+                }
+                return res.status(200).send(response);
+            }
+
+        })
+
+    })
+
     app.post('/api/fileupload/', upload.single('file'), function(req, res, next) {
         console.log("api/fileupload right before uploader.uploadSpreadsheet");
         uploader.uploadSpreadsheet(req, res, next);
@@ -203,30 +221,15 @@ module.exports = function (app) {
         });
     });
 
-    // app.get('/api/finishedGoodOuput/:ModelID', function(req, res){
-    //     console.log('api/finishedGoodOuput');
-    //     output.find({IsFinishedGood: true, ModelID: req.params.ModelID}).exec(function(err, finishedGoods){
-    //         if(err) {
-    //             errorHandler(err, req, res);
-    //         } else {
-    //             console.log("api/finishedGoodOutputs results", finishedGoods);
-    //             console.log("type of response", typeof(finishedGoods));
-    //             //for(var ps = 0; ps < finishedGoods.length(); ps++) {
-    //                 console.log("PS", finishedGoods[0]);
-    //             //}
-    //             res.send(finishedGoods);
-    //         }
-    //     });
-    // });
-
-    app.get('/api/finishedGoodOuput', function(req, res){
-        console.log('api/finishedGoodOuput');
-        components.find({type: "Finished Good"}).exec(function(err, finishedGoods){
+    app.get('/api/AOR', function(req, res){
+        //AOR = areas of responsibility.  It's the top level grouping of projects.
+        console.log('api/AOR');
+        components.find({type: "AOR"}).exec(function(err, AOR){
             if(err) {
                 errorHandler(err, req, res);
             } else {
-                console.log("api/finishedGoodOutputs results", finishedGoods);
-                res.send(finishedGoods);
+                console.log("api/topAreas results", AOR);
+                res.send(AOR);
             }
         });
     });

@@ -122,7 +122,7 @@ md-toast {
     margin: 0px;
 }
 
-.no-margin{
+.no-margin {
     margin: 0px !important
 }
 
@@ -138,7 +138,23 @@ md-dialog.fullscreen-dialog {
     border-radius: 0;
 }
 
+
+
+.action-panel {
+    min-width: 700px;
+
+}
+
 md-input-container {
-    margin: 0px;
+    margin-top: 10px;
+    margin-bottom: 0p;
     height: 30 px;
 }
+/* md-sidenav.md-sidenav-left {
+    position: fixed !important;
+    top: 65px;
+} */
+/* md-content.main {
+    overflow-y: scroll;
+    margin-top: 65px;
+} */
