@@ -185,6 +185,7 @@ function routeController($scope, $mdDialog, $mdToast, $rootScope, $location, Cli
     };
 
     $scope.loadOutputs = function (modelID) {
+        console.log("loadoutputs")
         OperationService.getAOR(modelID).then(function (response) {
             console.log("response from load outputs", response);
             $scope.routes = [];
@@ -211,17 +212,19 @@ function routeController($scope, $mdDialog, $mdToast, $rootScope, $location, Cli
     };
 
     $scope.init = function () {
-        console.log("ClientService models", ClientService.models)
-        console.log("ClientService.operations", ClientService.operations)
-        console.log("ClientService.AOR", ClientService.AOR);
-        $scope.models = angular.copy(ClientService.models);
-        $scope.operations = angular.copy(ClientService.operations);
-        $scope.timePeriods = angular.copy($scope.models.Periods);
-        $scope.model = $scope.models[0];
-        $scope.routes = angular.copy(ClientService.AOR);
-        console.log('routes', $scope.routes);
-        $scope.allItems = angular.copy(ClientService.allItems)
-        console.log("allitems", $scope.allItems);
+        console.log("routeconroller init")
+        $scope.loadOutputs()
+        // console.log("ClientService models", ClientService.models)
+        // console.log("ClientService.operations", ClientService.operations)
+        // console.log("ClientService.AOR", ClientService.AOR);
+        // $scope.models = angular.copy(ClientService.models);
+        // $scope.operations = angular.copy(ClientService.operations);
+        // $scope.timePeriods = angular.copy($scope.models.Periods);
+        // $scope.model = $scope.models[0];
+        // $scope.routes = angular.copy(ClientService.AOR);
+        // console.log('routes', $scope.routes);
+        // $scope.allItems = angular.copy(ClientService.allItems)
+        // console.log("allitems", $scope.allItems);
     }();
 
     //stuff probably not needed
